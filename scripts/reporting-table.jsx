@@ -2,7 +2,8 @@ import React from "react";
 import $ from "jquery";
 import ReportingHead from "./reporting-head.jsx";
 import ReportingBody from "./reporting-body.jsx";
-import span from "./span.js";
+import calSpan from "./cal-span.js";
+import calHead from "./cal-head.js";
 
 
 class ReportingTable extends React.Component {
@@ -15,72 +16,25 @@ class ReportingTable extends React.Component {
         };
     }
 
-
     fetchHead() {
-        // $.ajax({
-        //     type: 'GET',
-        //     dataType: "text",
-        //     url: '/head',
-        //     success: function (data) {
-        //         var json = JSON.parse(data);
-        //         this.setState({head: json})
-        //     }.bind(this)
-        // });
-        var data = [
-            {
-                "name": "SARAMPO 055_Menos de 9 meses"
-            },
-            {
-                "name": "SARAMPO 055_9-23 meses_Nāo Vacinados"
-            },
-            {
-                "name": "SARAMPO 055_9-23 meses_Vacinados"
-            },
-            {
-                "name": "SARAMPO 055_24 meses c mais"
-            },
-            {
-                "name": "037 TÉTANO RECÉM NASCIDOS"
-            },
-            {
-                "name": "MALARIA 084_0-4 anos"
-            },
-            {
-                "name": "MALARIA 084_5 anos +"
-            },
-            {
-                "name": "045 PARALISIA FLÁCIDA AGUDA"
-            },
-            {
-                "name": "071 RAIVA"
-            },
-            {
-                "name": "DIARREIA 009_0-4 anos"
-            },
-            {
-                "name": "DIARREIA 009_5-14 anos"
-            },
-            {
-                "name": "DIARREIA 009_15 anos +"
-            },
-            {
-                "name": "009.2 DISENTERIA"
-            },
-            {
-                "name": "001 CÓLERA"
-            },
-            {
-                "name": "020 PESTE"
-            },
-            {
-                "name": "MENINGITE *036_0-4 anos"
-            },
-            {
-                "name": "MENINGITE *036_5 anos +"
-            }
-        ];
-
-        this.setState({head: data});
+        $.ajax({
+            type: 'GET',
+            dataType: "json",
+            url: './id.json',
+            success: function (data) {
+                var mappings = data['dataElements'];
+                $.ajax({
+                    type: 'GET',
+                    dataType: "json",
+                    url: './header.json',
+                    success: function (data) {
+                        var head = calHead.getHead(data, mappings);
+                        console.log('head', head);
+                        this.setState({head: head})
+                    }.bind(this)
+                });
+            }.bind(this)
+        });
     }
 
     fetchRows() {
@@ -160,7 +114,7 @@ class ReportingTable extends React.Component {
     render() {
         return (
             <table className="ReportingTable">
-                <ReportingHead spans={span.calculateSpan(this.state.head)}/>
+                <ReportingHead spans={calSpan.calculateSpan(this.state.head)}/>
                 <ReportingBody data={this.state.rows}/>
             </table>
         )
