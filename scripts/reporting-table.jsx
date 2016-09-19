@@ -20,13 +20,13 @@ class ReportingTable extends React.Component {
         $.ajax({
             type: 'GET',
             dataType: "json",
-            url: './id.json',
+            url: 'http://52.32.36.132/api/dataElements.json',
             success: function (data) {
                 var mappings = data['dataElements'];
                 $.ajax({
                     type: 'GET',
                     dataType: "json",
-                    url: './header.json',
+                    url: 'http://52.32.36.132/api/dataElementOperands.json',
                     success: function (data) {
                         var head = calHead.getHead(data, mappings);
                         console.log('head', head);
