@@ -3,7 +3,7 @@ import $ from "jquery";
 import ReportingHead from "../reporting-head/index.jsx";
 import ReportingBody from "../reporting-body/index.jsx";
 import calSpan from "../../commen/cal-span.js";
-import './index.scss';
+import css from './index.scss';
 import './report-table.scss';
 
 class ReportingTable extends React.Component {
@@ -98,7 +98,7 @@ class ReportingTable extends React.Component {
 
     render() {
         return (
-            <div className='tableContainer'>
+            <div className={ css.tableContainer }>
                 <table className='ReportingTable'>
                     <ReportingHead spans={calSpan.calculateSpan(this.state.head)}/>
                     <ReportingBody data={this.state.rows}/>
