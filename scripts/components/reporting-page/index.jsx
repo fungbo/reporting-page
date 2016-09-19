@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from "jquery";
-import calHead from "../../commen/cal-head";
+import calHead from "../../utils/cal-head";
 import ReportingTable from '../reporting-table/index.jsx';
 import ReportingSidebar from '../reporting-sidebar/index.jsx';
 import './index.scss';

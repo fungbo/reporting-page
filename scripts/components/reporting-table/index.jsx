@@ -2,7 +2,7 @@ import React from "react";
 import $ from "jquery";
 import ReportingHead from "../reporting-head/index.jsx";
 import ReportingBody from "../reporting-body/index.jsx";
-import calSpan from "../../commen/cal-span.js";
+import calSpan from "../../utils/cal-span.js";
 import css from './index.scss';
 import './report-table.scss';
 
