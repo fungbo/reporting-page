@@ -3,7 +3,7 @@ import $ from "jquery";
 import ReportingHead from "./reporting-head.jsx";
 import ReportingBody from "./reporting-body.jsx";
 import calSpan from "./cal-span.js";
-import calHead from "./cal-head.js";
+
 
 
 class ReportingTable extends React.Component {
@@ -11,32 +11,16 @@ class ReportingTable extends React.Component {
         super(props);
 
         this.state = {
-            head: [],
             rows: {name: '', values: [], children: [{name: '', values: []}]}
         };
     }
 
-    fetchHead() {
-        $.ajax({
-            type: 'GET',
-            dataType: "json",
-            url: 'http://52.32.36.132/api/dataElements.json',
-            success: function (data) {
-                var mappings = data['dataElements'];
-                $.ajax({
-                    type: 'GET',
-                    dataType: "json",
-                    url: 'http://52.32.36.132/api/dataElementOperands.json',
-                    success: function (data) {
-                        var head = calHead.getHead(data, mappings);
-                        console.log('head', head);
-                        this.setState({head: head})
-                    }.bind(this)
-                });
-            }.bind(this)
-        });
-    }
-
+    static get defaultProps() {
+        return {
+            head: []
+        }
+    };
+    
     fetchRows() {
         // $.ajax({
         //     type: 'GET',
@@ -114,14 +98,13 @@ class ReportingTable extends React.Component {
     render() {
         return (
             <table className="ReportingTable">
-                <ReportingHead spans={calSpan.calculateSpan(this.state.head)}/>
+                <ReportingHead spans={calSpan.calculateSpan(this.props.head)}/>
                 <ReportingBody data={this.state.rows}/>
             </table>
         )
     }
 
     componentDidMount() {
-        this.fetchHead();
         this.fetchRows();
     }
 }
