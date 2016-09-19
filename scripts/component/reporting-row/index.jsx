@@ -1,5 +1,4 @@
 import React from "react";
-import '../css/report-table.scss'
 
 var HIDE_ICON_CLASS = "glyphicon glyphicon-menu-right";
 var SHOW_ICON_CLASS = "glyphicon glyphicon-menu-down";

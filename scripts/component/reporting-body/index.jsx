@@ -1,5 +1,5 @@
 import React from "react";
-import ReportingRow from './reporting-row.jsx';
+import ReportingRow from '../reporting-row/index.jsx';
 
 class ReportingBody extends React.Component {
     constructor(props) {

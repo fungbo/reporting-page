@@ -1,8 +1,9 @@
 import React from 'react';
 import $ from "jquery";
-import ReportingTable from './reporting-table.jsx';
-import ReportingSidebar from './reporting-sidebar.jsx';
-import calHead from "./cal-head.js";
+import calHead from "../../commen/cal-head";
+import ReportingTable from '../reporting-table/index.jsx';
+import ReportingSidebar from '../reporting-sidebar/index.jsx';
+import './index.scss';
 
 class ReportingPage extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class ReportingPage extends React.Component {
 
     render() {
         return (
-            <div className="ReportingPage">
+            <div className='ReportingPage'>
                 <ReportingSidebar />
                 <ReportingTable head={this.state.head} />
             </div>

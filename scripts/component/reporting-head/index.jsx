@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import '../css/report-table.scss'
 
 class ReportingHead extends React.Component {
     render() {

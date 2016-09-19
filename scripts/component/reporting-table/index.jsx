@@ -1,16 +1,17 @@
 import React from "react";
 import $ from "jquery";
-import ReportingHead from "./reporting-head.jsx";
-import ReportingBody from "./reporting-body.jsx";
-import calSpan from "./cal-span.js";
-
-
+import ReportingHead from "../reporting-head/index.jsx";
+import ReportingBody from "../reporting-body/index.jsx";
+import calSpan from "../../commen/cal-span.js";
+import css from './index.scss';
+import './report-table.scss';
 
 class ReportingTable extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            head: [],
             rows: {name: '', values: [], children: [{name: '', values: []}]}
         };
     }
@@ -97,10 +98,12 @@ class ReportingTable extends React.Component {
 
     render() {
         return (
-            <table className="ReportingTable">
-                <ReportingHead spans={calSpan.calculateSpan(this.props.head)}/>
-                <ReportingBody data={this.state.rows}/>
-            </table>
+            <div className={ css.tableContainer }>
+                <table className='ReportingTable'>
+                    <ReportingHead spans={calSpan.calculateSpan(this.state.head)}/>
+                    <ReportingBody data={this.state.rows}/>
+                </table>
+            </div>
         )
     }
 
