@@ -1,7 +1,8 @@
 import React from "react";
+import css from './index.scss'
 
-var HIDE_ICON_CLASS = "glyphicon glyphicon-menu-right";
-var SHOW_ICON_CLASS = "glyphicon glyphicon-menu-down";
+var HIDE_ICON_CLASS = "glyphicon glyphicon-triangle-right";
+var SHOW_ICON_CLASS = "glyphicon glyphicon-triangle-bottom";
 
 class ReportingRow extends React.Component {
     constructor(props) {
@@ -18,17 +19,16 @@ class ReportingRow extends React.Component {
     render() {
         var id = this.props.row.id;
         var name = this.props.row.name;
-        var styles = {
-            width: '12%',
-            textAlign: "left"};
+        const levelStyle = ['primary', 'secondary', 'tertiary'];
+        const rowStyle = levelStyle[this.props.row.level];
 
         return (
-            <tr className="ReportingRow">
-                <td style={styles} onClick={this.handleClick.bind(this, id, name)}>
-                    <i className={this.getClassName(this.props.row.name)}/> {this.props.row.name}
+            <tr className={(css[rowStyle] || '') + ' ReportingRow'}>
+                <td className={(css[rowStyle + 'Title'] || '') + ' ' + css.rowName} onClick={this.handleClick.bind(this, id, name)}>
+                    <i className={this.getClassName(this.props.row.name, rowStyle) + ' ' + css.icon}/> {this.props.row.name}
                 </td>
-                {this.props.row.values.map(function (column) {
-                    return <td>{column}</td>;
+                {this.props.row.values.map(function (column, index) {
+                    return <td key={index}>{column}</td>;
                 })}
             </tr>
         )
@@ -38,7 +38,10 @@ class ReportingRow extends React.Component {
         this.props.onClick(id, name);
     }
 
-    getClassName(name) {
+    getClassName(name, levelStyle) {
+        if (!levelStyle) {
+            return ''
+        }
         if (!this.props.showChildren[name] || this.props.showChildren[name] == undefined) {
             return HIDE_ICON_CLASS;
         }

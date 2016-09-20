@@ -99,25 +99,26 @@ class ReportingSidebar extends React.Component {
         ];
 
         return (
-            <div className="col-sm-4 col-md-3 sidebar">
+            <div className={ css.sidebar + ' col-sm-4 col-md-3' }>
                 <div className={ css.head }>B.E.S - Multiple locations</div>
                 <DatePickerBar label='Start epidemiological week'/>
                 <DatePickerBar label='End epidemiological week'/>
-                <div>Diseases</div>
+                <div className={ css.filterName } >Diseases</div>
                 <div className={ css.filter }>
                     <TreeView data={data} color="#000000"
                               selectedIcon="glyphicon glyphicon-ok"
                               unselectedIcon="glyphicon glyphicon-remove"
                               expandIcon=""
                               collapseIcon=""
-                              showBorder={false} z
+                              showBorder={false}
                     />
                 </div>
-                <Button className={ css.reportBtn } label='GENERATE REPORT' raised primary/>
+                <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }/>
                 <div className={ css.exportDiv }>
                     <Button className={ css.exportBtn } icon="get_app" label='Export data to xls  '/>
                 </div>
-            </div>)
+            </div>
+        )
     }
 }
 

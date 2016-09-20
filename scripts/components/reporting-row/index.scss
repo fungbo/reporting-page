@@ -1,0 +1,43 @@
+.ReportingRow {
+}
+
+.primary {
+  background: #535353;
+  color: white;
+}
+
+.primaryTitle {
+  font-weight: bold;
+  border: 1px solid #000;
+}
+
+.rowName {
+  width: 12%;
+  text-align: left;
+  position: relative;
+}
+
+.icon {
+  float: left;
+  margin: 3px 3px 0 4px;
+  color: #ECECEC;
+  font-size: 12px;
+}
+
+.secondary {
+  background: #A7A7A7;
+}
+
+.secondaryTitle {
+  font-weight: bold;
+  border: 1px solid #000;
+}
+
+.tertiary {
+  background: #DDDDDD;
+}
+
+.tertiaryTitle {
+  font-weight: bold;
+  border: 1px solid #000;
+}

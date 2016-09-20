@@ -9,7 +9,7 @@ class ReportingBody extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showChildren: {Moh: true}
+            showChildren: {MoH: true}
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -21,8 +21,8 @@ class ReportingBody extends React.Component {
         return (
             <tbody className="ReportingBody">
             {
-                rows.map(function(row) {
-                    return <ReportingRow key={row.name}
+                rows.map(function(row, index) {
+                    return <ReportingRow key={index}
                                          row={row}
                                          onClick={this.handleClick}
                                          showChildren={this.state.showChildren} />
@@ -58,7 +58,7 @@ class ReportingBody extends React.Component {
     generateRows(oriRows, state) {
         var rows = [];
 
-        function generate(oriRows) {
+        function generate(oriRows, level = 0) {
             var data = oriRows[0];
 
             var rowId = data.id;
@@ -66,10 +66,11 @@ class ReportingBody extends React.Component {
             var rowValue = data.values;
             var showChildren = state.showChildren[rowName];
 
-            rows.push({id: rowId, name: rowName, values: rowValue});
+            rows.push({id: rowId, name: rowName, values: rowValue, level});
             if (showChildren && data.children) {
+                level++;
                 data.children.map(function (child) {
-                    generate([child]);
+                    generate([child], level);
                 })
             }
         }

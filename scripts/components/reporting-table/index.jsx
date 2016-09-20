@@ -45,7 +45,7 @@ class ReportingTable extends React.Component {
     render() {
         return (
             <div className={ css.tableContainer }>
-                <table className='ReportingTable'>
+                <table className={ css.ReportingTable }>
                     <ReportingHead spans={calSpan.calculateSpan(this.props.head)}/>
                     <ReportingBody data={this.state.rows} oriHead={this.props.oriHead} addChildren={this.addChildren}/>
                 </table>
