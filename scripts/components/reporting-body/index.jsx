@@ -1,5 +1,9 @@
 import React from "react";
+import $ from "jquery";
 import ReportingRow from '../reporting-row/index.jsx';
+import calRow from "../../utils/cal-row.js";
+import calUrl from "../../utils/cal-url.js";
+import calOrgan from "../../utils/cal_organisation";
 
 class ReportingBody extends React.Component {
     constructor(props) {
@@ -28,34 +32,57 @@ class ReportingBody extends React.Component {
         );
     }
 
-    handleClick(name) {
+    handleClick(id, name) {
         var values = this.state.showChildren;
         values[name] = !this.state.showChildren[name];
-        
+
+        var oriHead = this.props.oriHead;
+        var addChildren = this.props.addChildren;
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: calUrl.getChildrenUrl(id),
+            // url: './organisations.json',
+            success: function(data) {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(data['children']), 'THIS_YEAR'),
+                    // url: './provinces.json',
+                    success: function (provinces) {
+                        var rows = calRow.getRows(provinces, oriHead);
+                        addChildren(id, rows);
+                    }
+                });
+
+            }.bind(this)
+        });
+
         this.setState({
             showChildren: values
         });
-
-        console.log('show', this.state.showChildren);
     }
 
-    generateRows(data, state) {
+    generateRows(oriRows, state) {
         var rows = [];
 
-        function generate(data) {
+        function generate(oriRows) {
+            var data = oriRows[0];
+
+            var rowId = data.id;
             var rowName = data.name;
             var rowValue = data.values;
             var showChildren = state.showChildren[rowName];
 
-            rows.push({name: rowName, values: rowValue});
+            rows.push({id: rowId, name: rowName, values: rowValue});
             if (showChildren && data.children) {
-                data.children.map(function (children) {
-                    generate(children);
+                data.children.map(function (child) {
+                    generate([child]);
                 })
             }
         }
 
-        generate(data);
+        generate(oriRows);
 
         return rows;
     }

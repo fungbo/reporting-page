@@ -11,11 +11,12 @@ class ReportingRow extends React.Component {
     static get defaultProps() {
         return {
             showChildren: {},
-            row: {name: '', values: []}
+            row: {id: '', name: '', values: []}
         }
     };
 
     render() {
+        var id = this.props.row.id;
         var name = this.props.row.name;
         var styles = {
             width: '12%',
@@ -23,7 +24,7 @@ class ReportingRow extends React.Component {
 
         return (
             <tr className="ReportingRow">
-                <td style={styles} onClick={this.handleClick.bind(this, name)}>
+                <td style={styles} onClick={this.handleClick.bind(this, id, name)}>
                     <i className={this.getClassName(this.props.row.name)}/> {this.props.row.name}
                 </td>
                 {this.props.row.values.map(function (column) {
@@ -33,8 +34,8 @@ class ReportingRow extends React.Component {
         )
     }
 
-    handleClick(name) {
-        this.props.onClick(name);
+    handleClick(id, name) {
+        this.props.onClick(id, name);
     }
 
     getClassName(name) {

@@ -1,0 +1,313 @@
+{
+  "headers": [
+    {
+      "name": "dx",
+      "column": "Data",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "ou",
+      "column": "Organisation unit",
+      "type": "java.lang.String",
+      "hidden": false,
+      "meta": true
+    },
+    {
+      "name": "value",
+      "column": "Value",
+      "type": "java.lang.Double",
+      "hidden": false,
+      "meta": false
+    }
+  ],
+  "metaData": {
+    "names": {
+      "ef8817e929c.RNSpECsOlhj": "DIARREIA 009 15 anos+, O",
+      "fa48b98506d.ccIk8NUlNZm": "MALARIA 084 0-4 anos, O",
+      "af47c3c71d0.m7ZJtugULlC": "SARAMPO 055 24 meses e mais, C",
+      "ef8817e929c.DxmC5PYxy47": "DIARREIA 009 0-4 anos, O",
+      "af47c3c71d0.CTKw8BuUtB7": "SARAMPO 055 24 meses e mais, O",
+      "ee4aa11fd69.qIwV8kkbQ3H": "045 PARALISIA FLÁCIDA AGUDA O",
+      "r56d98c351d.vXo6lUDgBw0": "MALARIA CLINICA 5 anos+, C",
+      "rf040c9a7ab.ppLrdgJMSwt": "001 CÓLERA O",
+      "h550ca50708.qDufWR4S46c": "020 PESTE C",
+      "ta8c710e735.JgZ6iwORla4": "071 RAIVA C",
+      "fa48b98506d.cKBdwjFA4Hv": "MALARIA 084 0-4 anos, C",
+      "r56d98c351d.SXjEAmy1lLf": "MALARIA CLINICA 0-4 anos, O",
+      "ee4aa11fd69.CoSDefJ8HSR": "045 PARALISIA FLÁCIDA AGUDA C",
+      "fa48b98506d.DStMwImCLOE": "MALARIA 084 5 anos+, O",
+      "af47c3c71d0.dIyVEOA1Tjp": "SARAMPO 055 Menos de 9 meses, O",
+      "ma97d9c69c5.eZl42yogAQh": "009.2 DISENTERIA C",
+      "fa48b98506d.BF745lCXIWY": "MALARIA 084 5 anos+, C",
+      "r56d98c351d.zqQFL0UCwrs": "MALARIA CLINICA 0-4 anos, C",
+      "dx": "Data",
+      "rf040c9a7ab.GRIMsGFQHUc": "001 CÓLERA C",
+      "af47c3c71d0.oUggnGeMjRm": "SARAMPO 055 9-23 meses, Não Vacinados, C",
+      "ta8c710e735.WscrusqmN2N": "071 RAIVA O",
+      "ef8817e929c.ACI0wAQ8M8q": "DIARREIA 009 0-4 anos, C",
+      "m9fe3ae729c.N2tVGrS8Lsi": "MENINGITE 036 0-4 anos, O",
+      "af47c3c71d0.o0rlrDJA9ON": "SARAMPO 055 9-23 meses, Não Vacinados, O",
+      "c85cd6ce5d8.sXcYtwX16lv": "037 TÉTANO RECÉM NASCIDOS C",
+      "c85cd6ce5d8.cepI52aNsY8": "037 TÉTANO RECÉM NASCIDOS O",
+      "ef8817e929c.BZVb3giBiXm": "DIARREIA 009 5-14 anos, C",
+      "af47c3c71d0.f4Wp3MbgErb": "SARAMPO 055 9-23 meses, Vacinados, C",
+      "h550ca50708.bLQs8pUpgqV": "020 PESTE O",
+      "m9fe3ae729c.AgMVCtxtcYd": "MENINGITE 036 5 anos+, O",
+      "m9fe3ae729c.IdZf6uffRkk": "MENINGITE 036 5 anos+, C",
+      "ou": "Organisation unit",
+      "ef8817e929c.a3fKYcPeweo": "DIARREIA 009 15 anos+, C",
+      "MOH12345678": "MoH",
+      "ma97d9c69c5.fucc6HFAVhR": "009.2 DISENTERIA O",
+      "ef8817e929c.zcxBfVHgHbq": "DIARREIA 009 5-14 anos, O",
+      "r56d98c351d.YyWLk1gg9X2": "MALARIA CLINICA 5 anos+, O",
+      "af47c3c71d0.joBaWo3515Z": "SARAMPO 055 9-23 meses, Vacinados, O",
+      "2016": "2016",
+      "pe": "Period",
+      "af47c3c71d0.SPs3AOitWnm": "SARAMPO 055 Menos de 9 meses, C",
+      "m9fe3ae729c.BKOWr3FFfJW": "MENINGITE 036 0-4 anos, C"
+    },
+    "dx": [
+      "rf040c9a7ab.GRIMsGFQHUc",
+      "rf040c9a7ab.ppLrdgJMSwt",
+      "ma97d9c69c5.eZl42yogAQh",
+      "ma97d9c69c5.fucc6HFAVhR",
+      "h550ca50708.qDufWR4S46c",
+      "h550ca50708.bLQs8pUpgqV",
+      "c85cd6ce5d8.sXcYtwX16lv",
+      "c85cd6ce5d8.cepI52aNsY8",
+      "ee4aa11fd69.CoSDefJ8HSR",
+      "ee4aa11fd69.qIwV8kkbQ3H",
+      "ta8c710e735.JgZ6iwORla4",
+      "ta8c710e735.WscrusqmN2N",
+      "ef8817e929c.ACI0wAQ8M8q",
+      "ef8817e929c.DxmC5PYxy47",
+      "ef8817e929c.a3fKYcPeweo",
+      "ef8817e929c.RNSpECsOlhj",
+      "ef8817e929c.BZVb3giBiXm",
+      "ef8817e929c.zcxBfVHgHbq",
+      "fa48b98506d.cKBdwjFA4Hv",
+      "fa48b98506d.ccIk8NUlNZm",
+      "fa48b98506d.BF745lCXIWY",
+      "fa48b98506d.DStMwImCLOE",
+      "r56d98c351d.zqQFL0UCwrs",
+      "r56d98c351d.SXjEAmy1lLf",
+      "r56d98c351d.vXo6lUDgBw0",
+      "r56d98c351d.YyWLk1gg9X2",
+      "m9fe3ae729c.BKOWr3FFfJW",
+      "m9fe3ae729c.N2tVGrS8Lsi",
+      "m9fe3ae729c.IdZf6uffRkk",
+      "m9fe3ae729c.AgMVCtxtcYd",
+      "af47c3c71d0.m7ZJtugULlC",
+      "af47c3c71d0.CTKw8BuUtB7",
+      "af47c3c71d0.oUggnGeMjRm",
+      "af47c3c71d0.o0rlrDJA9ON",
+      "af47c3c71d0.f4Wp3MbgErb",
+      "af47c3c71d0.joBaWo3515Z",
+      "af47c3c71d0.SPs3AOitWnm",
+      "af47c3c71d0.dIyVEOA1Tjp"
+    ],
+    "pe": [
+      "2016"
+    ],
+    "ou": [
+      "MOH12345678"
+    ],
+    "co": []
+  },
+  "rows": [
+    [
+      "af47c3c71d0.m7ZJtugULlC",
+      "MOH12345678",
+      "47.0"
+    ],
+    [
+      "rf040c9a7ab.GRIMsGFQHUc",
+      "MOH12345678",
+      "50.0"
+    ],
+    [
+      "ma97d9c69c5.eZl42yogAQh",
+      "MOH12345678",
+      "1001.0"
+    ],
+    [
+      "ee4aa11fd69.CoSDefJ8HSR",
+      "MOH12345678",
+      "64.0"
+    ],
+    [
+      "fa48b98506d.ccIk8NUlNZm",
+      "MOH12345678",
+      "26.0"
+    ],
+    [
+      "af47c3c71d0.oUggnGeMjRm",
+      "MOH12345678",
+      "18.0"
+    ],
+    [
+      "ef8817e929c.zcxBfVHgHbq",
+      "MOH12345678",
+      "8.0"
+    ],
+    [
+      "c85cd6ce5d8.sXcYtwX16lv",
+      "MOH12345678",
+      "49.0"
+    ],
+    [
+      "m9fe3ae729c.IdZf6uffRkk",
+      "MOH12345678",
+      "24.0"
+    ],
+    [
+      "af47c3c71d0.joBaWo3515Z",
+      "MOH12345678",
+      "16.0"
+    ],
+    [
+      "af47c3c71d0.o0rlrDJA9ON",
+      "MOH12345678",
+      "15.0"
+    ],
+    [
+      "af47c3c71d0.SPs3AOitWnm",
+      "MOH12345678",
+      "123.0"
+    ],
+    [
+      "h550ca50708.qDufWR4S46c",
+      "MOH12345678",
+      "250.0"
+    ],
+    [
+      "r56d98c351d.SXjEAmy1lLf",
+      "MOH12345678",
+      "29.0"
+    ],
+    [
+      "h550ca50708.bLQs8pUpgqV",
+      "MOH12345678",
+      "50.0"
+    ],
+    [
+      "fa48b98506d.DStMwImCLOE",
+      "MOH12345678",
+      "30.0"
+    ],
+    [
+      "m9fe3ae729c.BKOWr3FFfJW",
+      "MOH12345678",
+      "25.0"
+    ],
+    [
+      "r56d98c351d.vXo6lUDgBw0",
+      "MOH12345678",
+      "130.0"
+    ],
+    [
+      "m9fe3ae729c.AgMVCtxtcYd",
+      "MOH12345678",
+      "23.0"
+    ],
+    [
+      "r56d98c351d.YyWLk1gg9X2",
+      "MOH12345678",
+      "31.0"
+    ],
+    [
+      "ef8817e929c.RNSpECsOlhj",
+      "MOH12345678",
+      "16.0"
+    ],
+    [
+      "ef8817e929c.BZVb3giBiXm",
+      "MOH12345678",
+      "1375.0"
+    ],
+    [
+      "ee4aa11fd69.qIwV8kkbQ3H",
+      "MOH12345678",
+      "47.0"
+    ],
+    [
+      "af47c3c71d0.dIyVEOA1Tjp",
+      "MOH12345678",
+      "12.0"
+    ],
+    [
+      "af47c3c71d0.CTKw8BuUtB7",
+      "MOH12345678",
+      "18.0"
+    ],
+    [
+      "rf040c9a7ab.ppLrdgJMSwt",
+      "MOH12345678",
+      "44.0"
+    ],
+    [
+      "ta8c710e735.JgZ6iwORla4",
+      "MOH12345678",
+      "402.0"
+    ],
+    [
+      "ef8817e929c.ACI0wAQ8M8q",
+      "MOH12345678",
+      "3640.0"
+    ],
+    [
+      "ma97d9c69c5.fucc6HFAVhR",
+      "MOH12345678",
+      "35.0"
+    ],
+    [
+      "m9fe3ae729c.N2tVGrS8Lsi",
+      "MOH12345678",
+      "21.0"
+    ],
+    [
+      "af47c3c71d0.f4Wp3MbgErb",
+      "MOH12345678",
+      "19.0"
+    ],
+    [
+      "c85cd6ce5d8.cepI52aNsY8",
+      "MOH12345678",
+      "49.0"
+    ],
+    [
+      "fa48b98506d.cKBdwjFA4Hv",
+      "MOH12345678",
+      "4350.0"
+    ],
+    [
+      "ef8817e929c.a3fKYcPeweo",
+      "MOH12345678",
+      "4873.0"
+    ],
+    [
+      "ta8c710e735.WscrusqmN2N",
+      "MOH12345678",
+      "38.0"
+    ],
+    [
+      "fa48b98506d.BF745lCXIWY",
+      "MOH12345678",
+      "16838.0"
+    ],
+    [
+      "r56d98c351d.zqQFL0UCwrs",
+      "MOH12345678",
+      "47.0"
+    ],
+    [
+      "ef8817e929c.DxmC5PYxy47",
+      "MOH12345678",
+      "70.0"
+    ]
+  ],
+  "height": 38,
+  "width": 3
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from "jquery";
 import calHead from "../../utils/cal-head";
+import calUrl from "../../utils/cal-url.js";
 import ReportingTable from '../reporting-table/index.jsx';
 import ReportingSidebar from '../reporting-sidebar/index.jsx';
 import './index.scss';
@@ -10,7 +11,8 @@ class ReportingPage extends React.Component {
         super(props);
 
         this.state = {
-            head: []
+            head: [],
+            oriHead: []
         };
     }
 
@@ -18,16 +20,18 @@ class ReportingPage extends React.Component {
         $.ajax({
             type: 'GET',
             dataType: "json",
-            url: 'http://52.32.36.132/api/dataElements.json',
+            url: calUrl.getIdUrl(),
+            // url: './id.json',
             success: function (data) {
                 var mappings = data['dataElements'];
                 $.ajax({
                     type: 'GET',
                     dataType: "json",
-                    url: 'http://52.32.36.132/api/dataElementOperands.json',
+                    url: calUrl.getHeadUrl(),
+                    // url: './header.json',
                     success: function (data) {
                         var head = calHead.getHead(data, mappings);
-                        this.setState({head: head})
+                        this.setState({head: head, oriHead: data['dataElementOperands']})
                     }.bind(this)
                 });
             }.bind(this)
@@ -36,9 +40,9 @@ class ReportingPage extends React.Component {
 
     render() {
         return (
-            <div className='ReportingPage'>
+            <div className="ReportingPage">
                 <ReportingSidebar />
-                <ReportingTable head={this.state.head} />
+                <ReportingTable head={this.state.head} oriHead={this.state.oriHead} />
             </div>
         )
     }
