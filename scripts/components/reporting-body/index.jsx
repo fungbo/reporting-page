@@ -38,11 +38,15 @@ class ReportingBody extends React.Component {
 
         var oriHead = this.props.oriHead;
         var addChildren = this.props.addChildren;
-        
-        axios.get(calUrl.getChildrenUrl(id))
+
+        var config = {
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+        };
+
+        axios.get(calUrl.getChildrenUrl(id), config)
         // axios.get('./organisations.json')
             .then(function (ous) {
-                axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'))
+                axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'), config)
                 // axios.get('./provinces.json')
                     .then(function(provinces) {
                         var rows = calRow.getRows(provinces.data, oriHead);

@@ -17,11 +17,15 @@ class ReportingPage extends React.Component {
     }
 
     fetchHead() {
-        axios.get(calUrl.getIdUrl())
+        var config = {
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+        };
+        
+        axios.get(calUrl.getIdUrl(), config)
         // axios.get('./id.json')
             .then(function (response) {
                 var mappings = response.data['dataElements'];
-                axios.get(calUrl.getHeadUrl())
+                axios.get(calUrl.getHeadUrl(), config)
                 // axios.get('./header.json')
                     .then(function (response) {
                         var head = calHead.getHead(response.data, mappings);
