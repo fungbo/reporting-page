@@ -15,14 +15,6 @@ th {
     background-color: #b4c5d4;
 }
 
-tr:nth-child(even) {
-    background-color: white;
-}
-
-tr:nth-child(odd) {
-    background-color: lightgray;
-}
-
 td .item-td {
     text-align: left;
     width: 10%;

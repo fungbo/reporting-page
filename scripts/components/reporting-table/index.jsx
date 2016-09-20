@@ -31,8 +31,8 @@ class ReportingTable extends React.Component {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: calUrl.getRowUrl(props.oriHead, ['MOH12345678'], 'THIS_YEAR'),
-            // url: './moh.json',
+            // url: calUrl.getRowUrl(props.oriHead, ['MOH12345678'], 'THIS_YEAR'),
+            url: './moh.json',
             success: function (data) {
                 var rows = calRow.getRows(data, props.oriHead);
                 this.setState({rows: rows});

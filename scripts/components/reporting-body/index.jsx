@@ -41,14 +41,14 @@ class ReportingBody extends React.Component {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: calUrl.getChildrenUrl(id),
-            // url: './organisations.json',
+            // url: calUrl.getChildrenUrl(id),
+            url: './organisations.json',
             success: function(data) {
                 $.ajax({
                     type: 'GET',
                     dataType: 'json',
-                    url: calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(data['children']), 'THIS_YEAR'),
-                    // url: './provinces.json',
+                    // url: calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(data['children']), 'THIS_YEAR'),
+                    url: './provinces.json',
                     success: function (provinces) {
                         var rows = calRow.getRows(provinces, oriHead);
                         addChildren(id, rows);

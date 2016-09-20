@@ -20,15 +20,15 @@ class ReportingPage extends React.Component {
         $.ajax({
             type: 'GET',
             dataType: "json",
-            url: calUrl.getIdUrl(),
-            // url: './id.json',
+            // url: calUrl.getIdUrl(),
+            url: './id.json',
             success: function (data) {
                 var mappings = data['dataElements'];
                 $.ajax({
                     type: 'GET',
                     dataType: "json",
-                    url: calUrl.getHeadUrl(),
-                    // url: './header.json',
+                    // url: calUrl.getHeadUrl(),
+                    url: './header.json',
                     success: function (data) {
                         var head = calHead.getHead(data, mappings);
                         this.setState({head: head, oriHead: data['dataElementOperands']})
