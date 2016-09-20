@@ -11,11 +11,17 @@ class ReportingSidebar extends React.Component {
         this.state = {
             startDate: ''
         };
+
+        this.exportTable = this.exportTable.bind(this);
     }
 
     handleChange = (item, value) => {
         this.setState({...this.state, [item]: value});
     };
+
+    exportTable() {
+        this.props.exportTable();
+    }
 
     render() {
         var data = [
@@ -115,7 +121,8 @@ class ReportingSidebar extends React.Component {
                 </div>
                 <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }/>
                 <div className={ css.exportDiv }>
-                    <Button className={ css.exportBtn } icon="get_app" label='Export data to xls  '/>
+                    <Button className={ css.exportBtn } icon="get_app" label='Export data to xls  '
+                    onClick={this.exportTable}/>
                 </div>
             </div>
         )

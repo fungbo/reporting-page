@@ -14,13 +14,15 @@ class ReportingPage extends React.Component {
             head: [],
             oriHead: []
         };
+
+        this.exportTable = this.exportTable.bind(this);
     }
 
     fetchHead() {
         var config = {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
-        
+
         axios.get(calUrl.getIdUrl(), config)
         // axios.get('./id.json')
             .then(function (response) {
@@ -34,11 +36,15 @@ class ReportingPage extends React.Component {
             }.bind(this))
     }
 
+    exportTable() {
+        this.reportingTable.exportTable();
+    }
+
     render() {
         return (
             <div className="ReportingPage">
-                <ReportingSidebar />
-                <ReportingTable head={this.state.head} oriHead={this.state.oriHead}/>
+                <ReportingSidebar exportTable = {this.exportTable} />
+                <ReportingTable head={this.state.head} oriHead={this.state.oriHead} ref={(ref) => this.reportingTable = ref}/>
             </div>
         )
     }
