@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import css from './index.scss'
 
 class ReportingHead extends React.Component {
     render() {
@@ -37,7 +38,7 @@ class ReportingHead extends React.Component {
         return (
             <thead className="ReportingHead">
             <tr>
-                <th rowSpan={maxLayer}>Semana</th>
+                <th rowSpan={maxLayer} className={ css.headerTitle } >Localização</th>
                 {_.forEach(firstLayer, (function (value) {
                     return value
                 }))}

@@ -1,18 +1,7 @@
 .ReportingRow {
 }
 
-.primary {
-  background: #535353;
-  color: white;
-}
-
-.primaryTitle {
-  font-weight: bold;
-  border: 1px solid #000;
-}
-
 .rowName {
-  width: 12%;
   text-align: left;
   position: relative;
 }
@@ -24,20 +13,21 @@
   font-size: 12px;
 }
 
-.secondary {
-  background: #A7A7A7;
+.primary {
+  background: #535353;
+  color: white;
 }
 
-.secondaryTitle {
-  font-weight: bold;
-  border: 1px solid #000;
+.secondary {
+  background: #A7A7A7;
 }
 
 .tertiary {
   background: #DDDDDD;
 }
 
-.tertiaryTitle {
+.primaryTitle, .secondaryTitle, .tertiaryTitle {
   font-weight: bold;
   border: 1px solid #000;
+  cursor: pointer;
 }
