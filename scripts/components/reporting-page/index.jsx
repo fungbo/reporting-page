@@ -55,4 +55,3 @@ class ReportingPage extends React.Component {
 }
 
 export default ReportingPage;
-

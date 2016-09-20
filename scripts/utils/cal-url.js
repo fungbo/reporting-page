@@ -4,7 +4,7 @@ var _ = {
 };
 
 var getBaseUrl = function () {
-    return 'http://localhost:8080/api/';
+    return 'http://52.32.36.132/api/';
 };
 
 var getDimensionDx = function (oriHead) {
@@ -49,5 +49,4 @@ module.exports = {
     getChildrenUrl: function(ouId) {
         return getBaseUrl() + '24/organisationUnits/' + ouId;
     }
-}
-;
+};

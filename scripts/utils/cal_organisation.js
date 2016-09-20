@@ -2,7 +2,6 @@ var _ = {
     each: require('lodash/each')
 };
 
-
 module.exports = {
     getOrganisations: function(ous) {
         var organisations = [];
