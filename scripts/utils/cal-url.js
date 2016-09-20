@@ -1,4 +1,7 @@
-var _ = require('lodash');
+var _ = {
+    each: require('lodash/each'),
+    trimEnd: require('lodash/trimEnd')
+};
 
 var getBaseUrl = function () {
     return 'http://52.32.36.132/api/';

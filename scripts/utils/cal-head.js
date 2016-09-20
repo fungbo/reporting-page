@@ -1,4 +1,9 @@
-var _ = require('lodash');
+var _ = {
+    each: require('lodash/each'),
+    trim: require('lodash/trim'),  
+    trimEnd: require('lodash/trimEnd'),
+    uniqBy: require('lodash/uniqBy')
+};
 
 var getMappings = function (elements) {
     var mappings = {};

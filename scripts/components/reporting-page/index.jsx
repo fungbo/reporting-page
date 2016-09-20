@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from "jquery";
+import axios from "axios";
 import calHead from "../../utils/cal-head";
 import calUrl from "../../utils/cal-url.js";
 import ReportingTable from '../reporting-table/index.jsx';
@@ -17,32 +17,24 @@ class ReportingPage extends React.Component {
     }
 
     fetchHead() {
-        $.ajax({
-            type: 'GET',
-            dataType: "json",
-            // url: calUrl.getIdUrl(),
-            url: './id.json',
-            success: function (data) {
-                var mappings = data['dataElements'];
-                $.ajax({
-                    type: 'GET',
-                    dataType: "json",
-                    // url: calUrl.getHeadUrl(),
-                    url: './header.json',
-                    success: function (data) {
-                        var head = calHead.getHead(data, mappings);
-                        this.setState({head: head, oriHead: data['dataElementOperands']})
-                    }.bind(this)
-                });
-            }.bind(this)
-        });
+        axios.get(calUrl.getIdUrl())
+        // axios.get('./id.json')
+            .then(function (response) {
+                var mappings = response.data['dataElements'];
+                axios.get(calUrl.getHeadUrl())
+                // axios.get('./header.json')
+                    .then(function (response) {
+                        var head = calHead.getHead(response.data, mappings);
+                        this.setState({head: head, oriHead: response.data['dataElementOperands']})
+                    }.bind(this))
+            }.bind(this))
     }
 
     render() {
         return (
             <div className="ReportingPage">
                 <ReportingSidebar />
-                <ReportingTable head={this.state.head} oriHead={this.state.oriHead} />
+                <ReportingTable head={this.state.head} oriHead={this.state.oriHead}/>
             </div>
         )
     }

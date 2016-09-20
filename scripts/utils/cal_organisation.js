@@ -1,4 +1,7 @@
-var _ = require('lodash');
+var _ = {
+    each: require('lodash/each')
+};
+
 
 module.exports = {
     getOrganisations: function(ous) {
@@ -6,7 +9,7 @@ module.exports = {
         _.each(ous, function (ou) {
             organisations.push(ou.id);
         });
-        
+
         return organisations;
     }
 };

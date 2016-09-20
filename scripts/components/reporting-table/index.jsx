@@ -1,5 +1,5 @@
 import React from "react";
-import $ from "jquery";
+import axios from "axios";
 import deepCopy from "deepCopy";
 import ReportingHead from "../reporting-head/index.jsx";
 import ReportingBody from "../reporting-body/index.jsx";
@@ -28,16 +28,12 @@ class ReportingTable extends React.Component {
     };
 
     fetchRows(props) {
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            // url: calUrl.getRowUrl(props.oriHead, ['MOH12345678'], 'THIS_YEAR'),
-            url: './moh.json',
-            success: function (data) {
-                var rows = calRow.getRows(data, props.oriHead);
+        axios.get(calUrl.getRowUrl(props.oriHead, ['MOH12345678'], 'THIS_YEAR'))
+        // axios.get('./moh.json')
+            .then(function(response) {
+                var rows = calRow.getRows(response.data, props.oriHead);
                 this.setState({rows: rows});
-            }.bind(this)
-        });
+            }.bind(this))
     }
 
     addChildren(id, children) {

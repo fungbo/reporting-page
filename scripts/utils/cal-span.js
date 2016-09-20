@@ -1,4 +1,8 @@
-var _ = require('lodash');
+var _ = {
+    each: require('lodash/each'),
+    maxBy: require('lodash/maxBy'),
+    merge: require('lodash/merge')
+};
 
 var getNameLength = function (o) {
     return o.name.split('_').length;

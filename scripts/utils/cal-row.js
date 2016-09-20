@@ -1,4 +1,6 @@
-var _ = require('lodash');
+var _ = {
+    each: require('lodash/each')
+};
 
 var getRow = function (rows, head, ouId) {
     var row = {};
@@ -40,7 +42,7 @@ module.exports = {
     },
 
     appendChildren: function (rows, id, children) {
-        _.each(rows, function(row) {
+        _.each(rows, function (row) {
             if (row['id'] === id) {
                 row['children'] = children;
                 return rows;

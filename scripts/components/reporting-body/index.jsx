@@ -1,5 +1,5 @@
 import React from "react";
-import $ from "jquery";
+import axios from "axios";
 import ReportingRow from '../reporting-row/index.jsx';
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
@@ -38,25 +38,17 @@ class ReportingBody extends React.Component {
 
         var oriHead = this.props.oriHead;
         var addChildren = this.props.addChildren;
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            // url: calUrl.getChildrenUrl(id),
-            url: './organisations.json',
-            success: function(data) {
-                $.ajax({
-                    type: 'GET',
-                    dataType: 'json',
-                    // url: calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(data['children']), 'THIS_YEAR'),
-                    url: './provinces.json',
-                    success: function (provinces) {
-                        var rows = calRow.getRows(provinces, oriHead);
+        
+        axios.get(calUrl.getChildrenUrl(id))
+        // axios.get('./organisations.json')
+            .then(function (ous) {
+                axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'))
+                // axios.get('./provinces.json')
+                    .then(function(provinces) {
+                        var rows = calRow.getRows(provinces.data, oriHead);
                         addChildren(id, rows);
-                    }
-                });
-
-            }.bind(this)
-        });
+                    }.bind(this))
+            }.bind(this));
 
         this.setState({
             showChildren: values
