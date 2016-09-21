@@ -63,7 +63,10 @@ module.exports = {
                 return children != undefined;
             } else {
                 if (children) {
-                    return this.hasChildren(children, id);
+                    var res = this.hasChildren(children, id);
+                    if (res != undefined) {
+                        return res;
+                    }
                 }
             }
         }

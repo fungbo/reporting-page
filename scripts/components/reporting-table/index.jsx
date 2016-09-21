@@ -56,16 +56,12 @@ class ReportingTable extends React.Component {
     }
 
     addChildren(id, children) {
-        console.log('add Children');
         var rows = deepCopy(this.state.rows);
         calRow.appendChildren(rows, id, children);
         this.setState({rows: rows});
     }
 
     hasChildren(id) {
-        console.log('rows', this.state.rows);
-        console.log('id', id);
-
         return calRow.hasChildren(this.state.rows, id);
     }
 

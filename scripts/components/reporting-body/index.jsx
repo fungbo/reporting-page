@@ -17,9 +17,6 @@ class ReportingBody extends React.Component {
     }
 
     render() {
-        // console.log('rows', this.props.data);
-        // console.log('showChildren', this.state.showChildren);
-
         var rows = this.generateRows(this.props.data, this.state);
 
         return (
@@ -51,10 +48,7 @@ class ReportingBody extends React.Component {
         this.setState({showChildren: values});
 
         if (this.props.hasChildren(id)) {
-            console.log('name has children', name);
             return;
-        } else {
-            console.log('no children ', name);
         }
 
 
