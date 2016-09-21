@@ -9,6 +9,7 @@ class ReportingBody extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: {},
             showChildren: {MoH: true}
         };
 
@@ -24,6 +25,7 @@ class ReportingBody extends React.Component {
                 rows.map(function(row, index) {
                     return <ReportingRow key={index}
                                          row={row}
+                                         isLoading={this.state.isLoading}
                                          onClick={this.handleClick}
                                          showChildren={this.state.showChildren} />
                 }.bind(this))
@@ -43,14 +45,20 @@ class ReportingBody extends React.Component {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
 
+        this.setState({ isLoading: { ...this.state.isLoading, [name]: true }, });
+
         axios.get(calUrl.getChildrenUrl(id), config)
-            .then(function (ous) {
-                axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'), config)
-                    .then(function(provinces) {
+            .then((ous) => {
+                return axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'), config)
+                    .then((provinces) => {
                         var rows = calRow.getRows(provinces.data, oriHead);
                         addChildren(id, rows);
-                    }.bind(this))
-            }.bind(this));
+
+                        this.setState({ isLoading: { ...this.state.isLoading, [name]: false }, });
+                    })
+            }).catch(() => {
+                this.setState({ isLoading: { ...this.state.isLoading, [name]: false }, });
+            });
 
         this.setState({
             showChildren: values

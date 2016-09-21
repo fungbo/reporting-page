@@ -21,10 +21,12 @@ class ReportingRow extends React.Component {
         var name = this.props.row.name;
         const levelStyle = ['primary', 'secondary', 'tertiary'];
         const rowStyle = levelStyle[this.props.row.level];
+        const isLoading = this.props.isLoading[name];
 
         return (
             <tr className={(css[rowStyle] || '') + ' ReportingRow'}>
-                <td className={(css[rowStyle + 'Title'] || '') + ' ' + css.rowName} onClick={this.handleClick.bind(this, id, name)}>
+                <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(isLoading ? css.loading : '')}`}
+                    onClick={this.handleClick.bind(this, id, name)}>
                     { !!rowStyle && <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }{this.props.row.name}
                 </td>
                 {this.props.row.values.map(function (column, index) {
