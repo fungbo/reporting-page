@@ -47,6 +47,6 @@ module.exports = {
     },
 
     getChildrenUrl: function(ouId) {
-        return getBaseUrl() + '24/organisationUnits/' + ouId;
+        return getBaseUrl() + '24/organisationUnits/' + ouId + '?paging=false&fields=children';
     }
 };
