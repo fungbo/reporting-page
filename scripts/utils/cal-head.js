@@ -27,7 +27,7 @@ module.exports = {
             var headName = _.trim(_.trimEnd(_.trimEnd(_.trimEnd(displayName, 'C'), 'O'), ', '));
             var diseaseName = mappings[id.split('.')[0]];
 
-            heads.push({'name': headName.replace(diseaseName + ' ', diseaseName + '_').replace(', ', '_')});
+            heads.push({name: headName.replace(diseaseName + ' ', diseaseName + '_').replace(', ', '_')});
 
         });
 
@@ -40,7 +40,7 @@ module.exports = {
 
         var datas = [];
         _.each(mappings, function (value) {
-            datas.push({'text': value, 'nodes': []});
+            datas.push({text: value, state: {'selected': true}, nodes: []});
         })
         _.each(elements, function (element) {
             var id = element['id'];
@@ -51,13 +51,15 @@ module.exports = {
 
             if (filterName) {
                 _.each(datas, function (element) {
-                    var value = {'text': filterName};
+                    var value = {text: filterName, state: {'selected': true}};
                     if (diseaseName == element.text) {
                         element.nodes.push(value);
                         element.nodes = _.uniqBy(element.nodes, 'text')
-                    };
+                    }
+                    ;
                 });
-            };
+            }
+            ;
         });
 
         return _.uniqBy(datas, 'text')

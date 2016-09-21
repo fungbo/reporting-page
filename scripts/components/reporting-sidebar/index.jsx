@@ -15,6 +15,7 @@ class ReportingSidebar extends React.Component {
         };
 
         this.exportTable = this.exportTable.bind(this);
+
     }
 
     static get defaultProps() {
@@ -31,9 +32,13 @@ class ReportingSidebar extends React.Component {
         this.props.exportTable();
     }
 
+    filterChange = (tree) => {
+        console.log(tree)
+    };
+
     render() {
         return (
-            <div className={ css.sidebar + ' col-sm-4 col-md-3' }>
+            <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
                 <div className={ css.head }>B.E.S - Multiple locations</div>
                 <DatePickerBar
                     label='Start epidemiological week'
@@ -47,20 +52,23 @@ class ReportingSidebar extends React.Component {
                     minDate={this.state.startDate}
                     onChange={this.handleChange.bind(this, 'endDate')}
                 />
-                <div className={ css.filterName } >Diseases</div>
+                <div className={ css.filterName }>Diseases</div>
                 <div className={ css.filter }>
-                    <TreeView data={ this.props.sidebarFilter } color="#000000"
+                    <TreeView data={ this.props.sidebarFilter }
+                              color="#000000"
                               selectedIcon="glyphicon glyphicon-ok"
                               unselectedIcon="glyphicon glyphicon-remove"
                               expandIcon=""
                               collapseIcon=""
                               showBorder={false}
+                              onClick={this.filterChange.bind(this)}
                     />
                 </div>
                 <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }/>
                 <div className={ css.exportDiv }>
                     <Button className={ css.exportBtn } icon="get_app" label='Export data to xls  '
-                            onClick={this.exportTable}/>
+                            onClick={this.exportTable}
+                    />
                 </div>
             </div>
         )
@@ -76,7 +84,7 @@ class DatePickerBar extends React.Component {
                         inputFormat={formatDate}
                         sundayFirstDayOfWeek
                         autoOk
-                        {...this.props}
+                {...this.props}
             />)
     }
 }
