@@ -4,6 +4,10 @@
 .rowName {
   text-align: left;
   position: relative;
+  font-size: 1.2rem;
+  padding-left: 3px;
+  table-layout: fixed;
+  white-space: nowrap;
 }
 
 .icon {
@@ -27,6 +31,7 @@
 }
 
 .primaryTitle, .secondaryTitle, .tertiaryTitle {
+  font-size: 1.6rem;
   font-weight: bold;
   border: 1px solid #000;
   cursor: pointer;

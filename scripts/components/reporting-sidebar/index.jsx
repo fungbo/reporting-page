@@ -10,8 +10,8 @@ class ReportingSidebar extends React.Component {
         super(props);
 
         this.state = {
-            startDate: '',
-            endDate: ''
+            startDate: null,
+            endDate: null
         };
 
         this.exportTable = this.exportTable.bind(this);

@@ -25,7 +25,7 @@ class ReportingRow extends React.Component {
         return (
             <tr className={(css[rowStyle] || '') + ' ReportingRow'}>
                 <td className={(css[rowStyle + 'Title'] || '') + ' ' + css.rowName} onClick={this.handleClick.bind(this, id, name)}>
-                    <i className={this.getClassName(this.props.row.name, rowStyle) + ' ' + css.icon}/> {this.props.row.name}
+                    { !!rowStyle && <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }{this.props.row.name}
                 </td>
                 {this.props.row.values.map(function (column, index) {
                     return <td key={index}>{column}</td>;
@@ -38,10 +38,7 @@ class ReportingRow extends React.Component {
         this.props.onClick(id, name);
     }
 
-    getClassName(name, levelStyle) {
-        if (!levelStyle) {
-            return ''
-        }
+    getClassName(name) {
         if (!this.props.showChildren[name] || this.props.showChildren[name] == undefined) {
             return HIDE_ICON_CLASS;
         }

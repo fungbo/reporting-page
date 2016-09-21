@@ -64,6 +64,7 @@ module.exports = {
         })
     ],
     devServer: {
+        hot: true,
         proxy: {
             '/api/*': {
                 target: 'http://52.32.36.132',
