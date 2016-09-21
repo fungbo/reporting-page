@@ -1,7 +1,4 @@
 import React from "react";
-import axios from "axios";
-import calHead from "../../utils/cal-head";
-import calUrl from "../../utils/cal-url.js";
 import {Button} from "react-toolbox/lib/button";
 import DatePicker from "react-toolbox/lib/date_picker";
 import TreeView from "treeview-react-bootstrap";

@@ -25,11 +25,9 @@ class ReportingPage extends React.Component {
         };
 
         axios.get(calUrl.getIdUrl(), config)
-        // axios.get('./id.json')
             .then(function (response) {
                 var mappings = response.data['dataElements'];
                 axios.get(calUrl.getHeadUrl(), config)
-                // axios.get('./header.json')
                     .then(function (response) {
                         var sidebarFilter = calHead.getSidebarFilter(response.data, mappings);
                         var head = calHead.getHead(response.data, mappings);

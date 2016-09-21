@@ -44,10 +44,8 @@ class ReportingBody extends React.Component {
         };
 
         axios.get(calUrl.getChildrenUrl(id), config)
-        // axios.get('./organisations.json')
             .then(function (ous) {
                 axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'), config)
-                // axios.get('./provinces.json')
                     .then(function(provinces) {
                         var rows = calRow.getRows(provinces.data, oriHead);
                         addChildren(id, rows);

@@ -35,7 +35,6 @@ class ReportingTable extends React.Component {
         };
 
         axios.get(calUrl.getRowUrl(props.oriHead, ['MOH12345678'], 'THIS_YEAR'), config)
-        // axios.get('./moh.json')
             .then(function (response) {
                 var rows = calRow.getRows(response.data, props.oriHead);
                 this.setState({rows: rows});
