@@ -61,7 +61,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production UV_THREADPOOL_SIZE=100 webpack --config webpack.config",
     "deploy": "gh-pages -d build",
-    "start": "node server"
+    "start": "webpack-dev-server -d --hot --open --config webpack.config.js"
   },
   "license": "MIT",
   "homepage": "",
@@ -70,6 +70,7 @@
     "bootstrap": "^3.3.7",
     "deepcopy": "^0.6.3",
     "lodash": "^4.15.0",
+    "moment": "^2.15.0",
     "react-bootstrap-treeview": "^0.1.0",
     "treeview-react-bootstrap": "^0.4.6"
   }

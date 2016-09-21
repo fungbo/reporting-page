@@ -5,6 +5,7 @@ import calUrl from "../../utils/cal-url.js";
 import {Button} from "react-toolbox/lib/button";
 import DatePicker from "react-toolbox/lib/date_picker";
 import TreeView from "treeview-react-bootstrap";
+import moment from 'moment';
 import css from './index.scss';
 
 class ReportingSidebar extends React.Component {
@@ -12,7 +13,8 @@ class ReportingSidebar extends React.Component {
         super(props);
 
         this.state = {
-            startDate: ''
+            startDate: '',
+            endDate: ''
         };
 
         this.exportTable = this.exportTable.bind(this);
@@ -36,9 +38,19 @@ class ReportingSidebar extends React.Component {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-3' }>
                 <div className={ css.head }>B.E.S - Multiple locations</div>
-                <DatePickerBar label='Start epidemiological week'/>
-                <DatePickerBar label='End epidemiological week'/>
-                <div className={ css.filterName }>Diseases</div>
+                <DatePickerBar
+                    label='Start epidemiological week'
+                    value={this.state.startDate}
+                    maxDate={this.state.endDate}
+                    onChange={this.handleChange.bind(this, 'startDate')}
+                />
+                <DatePickerBar
+                    label='End epidemiological week'
+                    value={this.state.endDate}
+                    minDate={this.state.startDate}
+                    onChange={this.handleChange.bind(this, 'endDate')}
+                />
+                <div className={ css.filterName } >Diseases</div>
                 <div className={ css.filter }>
                     <TreeView data={ this.props.sidebarFilter } color="#000000"
                               selectedIcon="glyphicon glyphicon-ok"
@@ -59,15 +71,16 @@ class ReportingSidebar extends React.Component {
 }
 
 class DatePickerBar extends React.Component {
-    state = {startDate: ''};
-    handleChange = (item, value) => {
-        this.setState({...this.state, [item]: value});
-    };
-
     render() {
+        const formatDate = (date) => `${moment(date).format('D MMMM YYYY - WW')} week`;
+
         return (
-            <DatePicker icon="event" label={this.props.label} sundayFirstDayOfWeek
-                        onChange={this.handleChange.bind(this, 'startDate')} value={this.state.startDate}/>)
+            <DatePicker icon="event"
+                        inputFormat={formatDate}
+                        sundayFirstDayOfWeek
+                        autoOk
+                        {...this.props}
+            />)
     }
 }
 
