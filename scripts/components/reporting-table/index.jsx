@@ -81,10 +81,11 @@ class ReportingTable extends React.Component {
     exportTable() {
         if (this.reportingTable) {
             var toExcel = this.tableToExcel();
+            var title = 'reporting-page';
 
             var a = document.createElement('a');
-            a.download = "reporting-page.xls";
-            a.href = toExcel(this.reportingTable, 'reporting-page');
+            a.download = title + '.xls';
+            a.href = toExcel(this.reportingTable, title);
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
