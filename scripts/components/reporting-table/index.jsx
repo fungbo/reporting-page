@@ -6,6 +6,7 @@ import ReportingBody from "../reporting-body/index.jsx";
 import calSpan from "../../utils/cal-span.js";
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
+import calOrgan from "../../utils/cal_organisation";
 import css from "./index.scss";
 import "./report-table.scss";
 
@@ -30,14 +31,26 @@ class ReportingTable extends React.Component {
     };
 
     fetchRows(props) {
+        var mohId = 'MOH12345678';
+        var defaultPe = 'THIS_YEAR';
+
         var config = {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
 
-        axios.get(calUrl.getRowUrl(props.oriHead, ['MOH12345678'], 'THIS_YEAR'), config)
+        axios.get(calUrl.getRowUrl(props.oriHead, [mohId], defaultPe), config)
             .then(function (response) {
                 var rows = calRow.getRows(response.data, props.oriHead);
                 this.setState({rows: rows});
+                axios.get(calUrl.getChildrenUrl(mohId), config)
+                    .then(function (ous) {
+                        axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),
+                            defaultPe), config)
+                            .then(function(provinces) {
+                                var rows = calRow.getRows(provinces.data, props.oriHead);
+                                this.addChildren(mohId, rows);
+                            }.bind(this))
+                    }.bind(this));
             }.bind(this))
     }
 
