@@ -45,7 +45,6 @@ module.exports = {
         _.each(rows, function (row) {
             if (row['id'] === id) {
                 row['children'] = children;
-                return rows;
             } else {
                 if (row['children']) {
                     this.appendChildren(row['children'], id, children);
@@ -54,5 +53,19 @@ module.exports = {
         }.bind(this));
 
         return rows;
+    },
+
+    hasChildren: function (rows, id) {
+        for (let row of rows) {
+            var children = row['children'];
+
+            if (row['id'] === id) {
+                return children != undefined;
+            } else {
+                if (children) {
+                    return this.hasChildren(children, id);
+                }
+            }
+        }
     }
 };

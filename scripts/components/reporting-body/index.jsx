@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import ReportingRow from '../reporting-row/index.jsx';
+import ReportingRow from "../reporting-row/index.jsx";
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
@@ -17,17 +17,20 @@ class ReportingBody extends React.Component {
     }
 
     render() {
+        // console.log('rows', this.props.data);
+        // console.log('showChildren', this.state.showChildren);
+
         var rows = this.generateRows(this.props.data, this.state);
 
         return (
             <tbody className="ReportingBody">
             {
-                rows.map(function(row, index) {
+                rows.map(function (row, index) {
                     return <ReportingRow key={index}
                                          row={row}
                                          isLoading={this.state.isLoading}
                                          onClick={this.handleClick}
-                                         showChildren={this.state.showChildren} />
+                                         showChildren={this.state.showChildren}/>
                 }.bind(this))
             }
             </tbody>
@@ -45,7 +48,17 @@ class ReportingBody extends React.Component {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
 
-        this.setState({ isLoading: { ...this.state.isLoading, [name]: true }, });
+        this.setState({showChildren: values});
+
+        if (this.props.hasChildren(id)) {
+            console.log('name has children', name);
+            return;
+        } else {
+            console.log('no children ', name);
+        }
+
+
+        this.setState({isLoading: {...this.state.isLoading, [name]: true}});
 
         axios.get(calUrl.getChildrenUrl(id), config)
             .then((ous) => {
@@ -54,14 +67,11 @@ class ReportingBody extends React.Component {
                         var rows = calRow.getRows(provinces.data, oriHead);
                         addChildren(id, rows);
 
-                        this.setState({ isLoading: { ...this.state.isLoading, [name]: false }, });
+                        this.setState({isLoading: {...this.state.isLoading, [name]: false}});
                     })
             }).catch(() => {
-                this.setState({ isLoading: { ...this.state.isLoading, [name]: false }, });
-            });
-
-        this.setState({
-            showChildren: values
+            values[name] = false;
+            this.setState({showChildren: values, isLoading: {...this.state.isLoading, [name]: false}});
         });
     }
 

@@ -20,6 +20,7 @@ class ReportingTable extends React.Component {
         };
 
         this.addChildren = this.addChildren.bind(this);
+        this.hasChildren = this.hasChildren.bind(this);
         this.exportTable = this.exportTable.bind(this);
     }
 
@@ -46,7 +47,7 @@ class ReportingTable extends React.Component {
                     .then(function (ous) {
                         axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),
                             defaultPe), config)
-                            .then(function(provinces) {
+                            .then(function (provinces) {
                                 var rows = calRow.getRows(provinces.data, props.oriHead);
                                 this.addChildren(mohId, rows);
                             }.bind(this))
@@ -55,9 +56,17 @@ class ReportingTable extends React.Component {
     }
 
     addChildren(id, children) {
+        console.log('add Children');
         var rows = deepCopy(this.state.rows);
         calRow.appendChildren(rows, id, children);
         this.setState({rows: rows});
+    }
+
+    hasChildren(id) {
+        console.log('rows', this.state.rows);
+        console.log('id', id);
+
+        return calRow.hasChildren(this.state.rows, id);
     }
 
     tableToExcel() {
@@ -109,7 +118,9 @@ class ReportingTable extends React.Component {
             <div className={ css.tableContainer }>
                 <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
                     <ReportingHead spans={calSpan.calculateSpan(this.props.head)}/>
-                    <ReportingBody data={this.state.rows} oriHead={this.props.oriHead} addChildren={this.addChildren}/>
+                    <ReportingBody data={this.state.rows} oriHead={this.props.oriHead}
+                                   addChildren={this.addChildren}
+                                   hasChildren={this.hasChildren}/>
                 </table>
             </div>
         )
