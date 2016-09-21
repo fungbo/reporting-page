@@ -4,7 +4,7 @@ var _ = {
 };
 
 var getBaseUrl = function () {
-    return 'http://52.32.36.132/api/';
+    return 'http://localhost:8080/api/';
 };
 
 var getDimensionDx = function (oriHead) {

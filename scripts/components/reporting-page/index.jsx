@@ -12,7 +12,8 @@ class ReportingPage extends React.Component {
 
         this.state = {
             head: [],
-            oriHead: []
+            oriHead: [],
+            sidebarFilter: []
         };
 
         this.exportTable = this.exportTable.bind(this);
@@ -30,8 +31,10 @@ class ReportingPage extends React.Component {
                 axios.get(calUrl.getHeadUrl(), config)
                 // axios.get('./header.json')
                     .then(function (response) {
+                        var sidebarFilter = calHead.getSidebarFilter(response.data, mappings);
                         var head = calHead.getHead(response.data, mappings);
-                        this.setState({head: head, oriHead: response.data['dataElementOperands']})
+                        this.setState({head: head, oriHead: response.data['dataElementOperands'],
+                            sidebarFilter: sidebarFilter})
                     }.bind(this))
             }.bind(this))
     }
@@ -43,7 +46,7 @@ class ReportingPage extends React.Component {
     render() {
         return (
             <div className="ReportingPage">
-                <ReportingSidebar exportTable = {this.exportTable} />
+                <ReportingSidebar sidebarFilter={this.state.sidebarFilter} exportTable = {this.exportTable} />
                 <ReportingTable head={this.state.head} oriHead={this.state.oriHead} ref={(ref) => this.reportingTable = ref}/>
             </div>
         )
