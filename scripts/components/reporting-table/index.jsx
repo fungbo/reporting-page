@@ -74,15 +74,20 @@ class ReportingTable extends React.Component {
             };
         return function (table, name) {
             var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
-            window.location.href = uri + base64(format(template, ctx))
+            return uri + base64(format(template, ctx));
         }
     }
 
     exportTable() {
-        console.log('table export');
         if (this.reportingTable) {
             var toExcel = this.tableToExcel();
-            toExcel(this.reportingTable, "reporting-page");
+
+            var a = document.createElement('a');
+            a.download = "reporting-page.xls";
+            a.href = toExcel(this.reportingTable, 'reporting-page');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
     }
 
