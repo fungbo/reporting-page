@@ -15,14 +15,11 @@ class ReportingSidebar extends React.Component {
             startDate: null,
             endDate: null
         };
-
-        this.exportTable = this.exportTable.bind(this);
-
     }
 
     static get defaultProps() {
         return {
-            sidebarFilter: []
+            filter: []
         }
     };
 
@@ -30,22 +27,12 @@ class ReportingSidebar extends React.Component {
         this.setState({...this.state, [item]: value});
     };
 
-    exportTable() {
+    exportTable = () => {
         this.props.exportTable();
-    }
+    };
 
-    filterChange = (treeView) => {
-        var selectStatus = {};
-        _.each(treeView, function (element) {
-            if (element.nodes.length > 0) {
-                _.each(element.nodes, function (node) {
-                    selectStatus[[element.text, node.text].join("_")] = node.state.selected;
-                })
-            } else {
-                selectStatus[element.text] = element.state.selected;
-            }
-        });
-        console.log(selectStatus);
+    generateReport = () => {
+        this.props.updateTable(this.treeView.state.data);
     };
 
     render() {
@@ -67,18 +54,18 @@ class ReportingSidebar extends React.Component {
                 <div className={ css.filterName }>Diseases</div>
                 <div className={ css.filter }>
                     {
-                        !!this.props.sidebarFilter.length && (<TreeView data={ this.props.sidebarFilter }
-                              color="#000000"
-                              selectedIcon={ css.selected }
-                              unselectedIcon={ css.unCheck }
-                              expandIcon=""
-                              collapseIcon=""
-                              showBorder={false}
-                              onClick={this.filterChange.bind(this)}
-                        />)
+                        !!this.props.filter.length && (<TreeView data={ this.props.filter }
+                                                                 color="#000000"
+                                                                 selectedIcon={ css.selected }
+                                                                 unselectedIcon={ css.unCheck }
+                                                                 expandIcon=""
+                                                                 collapseIcon=""
+                                                                 showBorder={false}
+                                                                 ref={(ref) => this.treeView = ref} />)
                     }
                 </div>
-                <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }/>
+                <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }
+                        onClick={this.generateReport}/>
                 <div className={ css.exportDiv }>
                     <Link onClick={this.exportTable} label="Export data to xls" icon="get_app" />
                 </div>

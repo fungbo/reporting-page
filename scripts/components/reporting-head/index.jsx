@@ -44,23 +44,30 @@ class ReportingHead extends React.Component {
                     return value
                 }))}
             </tr>
-            <tr>
-                {_.forEach(secondLayer, (function (value) {
-                    return value
-                }))}
-            </tr>
-            <tr>
-                {_.forEach(thirdLayer, (function (value) {
-                    return value
-                }))}
-            </tr>
+
+            {
+                !!secondLayer.length && (<tr>
+                    {_.forEach(secondLayer, (function (value) {
+                        return value
+                    }))}
+                </tr>)
+            }
+
+            {
+                !!thirdLayer.length && (<tr>
+                    {_.forEach(thirdLayer, (function (value) {
+                        return value
+                    }))}
+                </tr>)
+            }
+
             <tr>
                 {_.forEach(ocLayer, (function (value) {
                     return value
                 }))}
             </tr>
             </thead>
-        )
+        );
     }
 }
 

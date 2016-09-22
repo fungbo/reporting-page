@@ -2,7 +2,8 @@ var _ = {
     each: require('lodash/each'),
     trim: require('lodash/trim'),
     trimEnd: require('lodash/trimEnd'),
-    uniqBy: require('lodash/uniqBy')
+    uniqBy: require('lodash/uniqBy'),
+    filter: require('lodash/filter')
 };
 
 var getMappings = function (elements) {
@@ -15,8 +16,14 @@ var getMappings = function (elements) {
 };
 
 module.exports = {
-    getHead: function (data, mapping) {
-        var elements = data['dataElementOperands'];
+    updateHead: function (headers, filter) {
+        return _.filter(headers, function(header) {
+            var name = _.trim(_.trimEnd(_.trimEnd(_.trimEnd(header.displayName, 'C'), 'O'), ', '));
+            return filter[name]
+        })
+    },
+
+    getHead: function (elements, mapping) {
         var mappings = getMappings(mapping);
 
         var heads = [];
@@ -34,14 +41,14 @@ module.exports = {
         return _.uniqBy(heads, 'name');
     },
 
-    getSidebarFilter: function (data, mapping) {
-        var elements = data['dataElementOperands'];
+    getFilter: function (elements, mapping) {
         var mappings = getMappings(mapping);
 
         var datas = [];
         _.each(mappings, function (value) {
             datas.push({text: value, state: {'selected': true}, nodes: []});
-        })
+        });
+
         _.each(elements, function (element) {
             var id = element['id'];
             var displayName = element['displayName'];
@@ -56,10 +63,8 @@ module.exports = {
                         element.nodes.push(value);
                         element.nodes = _.uniqBy(element.nodes, 'text')
                     }
-                    ;
                 });
             }
-            ;
         });
 
         return _.uniqBy(datas, 'text')

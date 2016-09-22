@@ -12,8 +12,6 @@ class ReportingBody extends React.Component {
             isLoading: {},
             showChildren: {MoH: true}
         };
-
-        this.handleClick = this.handleClick.bind(this);
     }
 
     render() {
@@ -34,7 +32,7 @@ class ReportingBody extends React.Component {
         );
     }
 
-    handleClick(id, name) {
+    handleClick = (id, name) => {
         var values = this.state.showChildren;
         values[name] = !this.state.showChildren[name];
 
@@ -67,7 +65,7 @@ class ReportingBody extends React.Component {
             values[name] = false;
             this.setState({showChildren: values, isLoading: {...this.state.isLoading, [name]: false}});
         });
-    }
+    };
 
     generateRows(oriRows, state) {
         var rows = [];

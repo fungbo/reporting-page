@@ -20,10 +20,6 @@ class ReportingTable extends React.Component {
         this.state = {
             rows: [{id: '', name: '', values: [], children: [{name: '', values: []}]}]
         };
-
-        this.addChildren = this.addChildren.bind(this);
-        this.hasChildren = this.hasChildren.bind(this);
-        this.exportTable = this.exportTable.bind(this);
     }
 
     static get defaultProps() {
@@ -58,15 +54,15 @@ class ReportingTable extends React.Component {
             }.bind(this))
     }
 
-    addChildren(id, children) {
+    addChildren = (id, children) => {
         var rows = deepCopy(this.state.rows);
         calRow.appendChildren(rows, id, children);
         this.setState({rows: rows});
-    }
+    };
 
-    hasChildren(id) {
+    hasChildren = (id) => {
         return calRow.hasChildren(this.state.rows, id);
-    }
+    };
 
     tableToExcel() {
         var uri = 'data:application/vnd.ms-excel;base64,',
@@ -98,7 +94,7 @@ class ReportingTable extends React.Component {
         }
     }
 
-    exportTable() {
+    exportTable = () => {
         if (this.reportingTable) {
             var toExcel = this.tableToExcel();
             var title = 'reporting-page';
@@ -110,7 +106,7 @@ class ReportingTable extends React.Component {
             a.click();
             document.body.removeChild(a);
         }
-    }
+    };
 
     render() {
         return (
