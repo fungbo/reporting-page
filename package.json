@@ -68,7 +68,6 @@
   "dependencies": {
     "axios": "^0.14.0",
     "bootstrap": "^3.3.7",
-    "deepcopy": "^0.6.3",
     "lodash": "^4.15.0",
     "moment": "^2.15.0",
     "react-bootstrap-treeview": "^0.1.0",

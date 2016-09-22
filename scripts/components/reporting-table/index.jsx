@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import deepCopy from "deepCopy";
 import ReportingHead from "../reporting-head/index.jsx";
 import ReportingBody from "../reporting-body/index.jsx";
 import calSpan from "../../utils/cal-span.js";
@@ -8,9 +7,13 @@ import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
 import css from "./index.scss";
-import _ from "lodash";
 import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
+
+var _ = {
+    noop: require('lodash/noop'),
+    cloneDeep: require('lodash/cloneDeep')
+};
 
 
 class ReportingTable extends React.Component {
@@ -55,7 +58,7 @@ class ReportingTable extends React.Component {
     }
 
     addChildren = (id, children) => {
-        var rows = deepCopy(this.state.rows);
+        var rows = _.cloneDeep(this.state.rows);
         calRow.appendChildren(rows, id, children);
         this.setState({rows: rows});
     };
