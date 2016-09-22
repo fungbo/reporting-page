@@ -1,9 +1,21 @@
 .tableContainer {
   width: auto;
   overflow-y: auto;
-  max-height: 100vh;
+  max-height: 95vh;
 }
 
 .ReportingTable {
   margin: 0;
+}
+
+.changeScreenLabel {
+  text-align: right;
+  a {
+    display: inline-block;
+    text-decoration: none;
+
+    &:last-child {
+      margin: 0 30px 0 20px;
+    }
+  }
 }

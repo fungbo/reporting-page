@@ -13,7 +13,8 @@ class ReportingPage extends React.Component {
         this.state = {
             head: [],
             oriHead: [],
-            sidebarFilter: []
+            sidebarFilter: [],
+            currentCategory: 'location'
         };
 
         this.exportTable = this.exportTable.bind(this);
@@ -41,11 +42,19 @@ class ReportingPage extends React.Component {
         this.reportingTable.exportTable();
     }
 
+    onChangeCategory(currentCategory) {
+        this.setState({currentCategory})
+    }
+
     render() {
         return (
             <div className="ReportingPage">
-                <ReportingSidebar sidebarFilter={this.state.sidebarFilter} exportTable = {this.exportTable} />
-                <ReportingTable head={this.state.head} oriHead={this.state.oriHead} ref={(ref) => this.reportingTable = ref}/>
+                <ReportingSidebar sidebarFilter={this.state.sidebarFilter} exportTable = {this.exportTable} currentCategory={ this.state.currentCategory }/>
+                <ReportingTable head={this.state.head}
+                                oriHead={this.state.oriHead}
+                                ref={(ref) => this.reportingTable = ref}
+                                currentCategory={ this.state.currentCategory }
+                                changeCategory={ ::this.onChangeCategory }/>
             </div>
         )
     }

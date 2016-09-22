@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import css from './index.scss'
+import { tableHeaderTitle } from '../../configs';
 
 class ReportingHead extends React.Component {
     render() {
@@ -38,7 +39,7 @@ class ReportingHead extends React.Component {
         return (
             <thead className="ReportingHead">
             <tr>
-                <th rowSpan={maxLayer} className={ css.headerTitle } >Localização</th>
+                <th rowSpan={maxLayer} className={ css.headerTitle } >{ tableHeaderTitle[this.props.currentCategory] }</th>
                 {_.forEach(firstLayer, (function (value) {
                     return value
                 }))}

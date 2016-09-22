@@ -5,6 +5,7 @@ import TreeView from "../../lib/treeview";
 import Link from 'react-toolbox/lib/link';
 import moment from 'moment';
 import css from './index.scss';
+import { categoryTitle } from '../../configs';
 
 class ReportingSidebar extends React.Component {
     constructor(props) {
@@ -50,7 +51,7 @@ class ReportingSidebar extends React.Component {
     render() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
-                <div className={ css.head }>B.E.S - Multiple locations</div>
+                <div className={ css.head }>{ categoryTitle[this.props.currentCategory] }</div>
                 <DatePickerBar
                     label='Start epidemiological week'
                     value={this.state.startDate}
