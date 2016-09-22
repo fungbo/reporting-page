@@ -33,6 +33,23 @@
 
 .exportDiv {
   text-align: center;
+  padding-top: 10px;
+  a {
+    font-size: 14px;
+    color: #1B5184;
+    opacity: 0.86;
+    text-decoration: none;
+  }
+}
+
+.selected:after {
+  content: "\2714";
+  color: #1B5184;
+}
+
+.unCheck:after {
+  content: "\2714";
+  visibility:hidden
 }
 
 .exportBtn {

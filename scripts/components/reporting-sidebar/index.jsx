@@ -1,7 +1,8 @@
 import React from "react";
 import {Button} from "react-toolbox/lib/button";
 import DatePicker from "react-toolbox/lib/date_picker";
-import TreeView from "treeview-react-bootstrap";
+import TreeView from "../../lib/treeview";
+import Link from 'react-toolbox/lib/link';
 import moment from 'moment';
 import css from './index.scss';
 
@@ -64,21 +65,21 @@ class ReportingSidebar extends React.Component {
                 />
                 <div className={ css.filterName }>Diseases</div>
                 <div className={ css.filter }>
-                    <TreeView data={ this.props.sidebarFilter }
+                    {
+                        !!this.props.sidebarFilter.length && (<TreeView data={ this.props.sidebarFilter }
                               color="#000000"
-                              selectedIcon="glyphicon glyphicon-ok"
-                              unselectedIcon="glyphicon glyphicon-remove"
+                              selectedIcon={ css.selected }
+                              unselectedIcon={ css.unCheck }
                               expandIcon=""
                               collapseIcon=""
                               showBorder={false}
                               onClick={this.filterChange.bind(this)}
-                    />
+                        />)
+                    }
                 </div>
                 <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }/>
                 <div className={ css.exportDiv }>
-                    <Button className={ css.exportBtn } icon="get_app" label='Export data to xls  '
-                            onClick={this.exportTable}
-                    />
+                    <Link onClick={this.exportTable} label="Export data to xls" icon="get_app" />
                 </div>
             </div>
         )
