@@ -32,8 +32,18 @@ class ReportingSidebar extends React.Component {
         this.props.exportTable();
     }
 
-    filterChange = (tree) => {
-        console.log(tree)
+    filterChange = (treeView) => {
+        var selectStatus = {};
+        _.each(treeView, function (element) {
+            if (element.nodes.length > 0) {
+                _.each(element.nodes, function (node) {
+                    selectStatus[[element.text, node.text].join("_")] = node.state.selected;
+                })
+            } else {
+                selectStatus[element.text] = element.state.selected;
+            }
+        });
+        console.log(selectStatus);
     };
 
     render() {
