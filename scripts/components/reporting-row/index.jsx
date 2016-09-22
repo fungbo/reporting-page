@@ -1,5 +1,5 @@
 import React from "react";
-import css from './index.scss'
+import css from "./index.scss";
 
 var HIDE_ICON_CLASS = "glyphicon glyphicon-triangle-right";
 var SHOW_ICON_CLASS = "glyphicon glyphicon-triangle-bottom";
@@ -27,7 +27,8 @@ class ReportingRow extends React.Component {
             <tr className={(css[rowStyle] || '') + ' ReportingRow'}>
                 <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(isLoading ? css.loading : '')}`}
                     onClick={this.handleClick.bind(this, id, name)}>
-                    { !!rowStyle && <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }{this.props.row.name}
+                    { !!rowStyle &&
+                    <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }{this.props.row.name}
                 </td>
                 {this.props.row.values.map(function (column, index) {
                     return <td key={index}>{column}</td>;

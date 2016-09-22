@@ -2,10 +2,10 @@ import React from "react";
 import {Button} from "react-toolbox/lib/button";
 import DatePicker from "react-toolbox/lib/date_picker";
 import TreeView from "../../lib/treeview";
-import Link from 'react-toolbox/lib/link';
-import moment from 'moment';
-import css from './index.scss';
-import { categoryTitle } from '../../configs';
+import Link from "react-toolbox/lib/link";
+import moment from "moment";
+import css from "./index.scss";
+import {categoryTitle} from "../../configs";
 
 class ReportingSidebar extends React.Component {
     constructor(props) {
@@ -61,13 +61,13 @@ class ReportingSidebar extends React.Component {
                                                                  expandIcon=""
                                                                  collapseIcon=""
                                                                  showBorder={false}
-                                                                 ref={(ref) => this.treeView = ref} />)
+                                                                 ref={(ref) => this.treeView = ref}/>)
                     }
                 </div>
                 <Button className={ css.reportBtn } label='GENERATE REPORT' neutral={ false }
                         onClick={this.generateReport}/>
                 <div className={ css.exportDiv }>
-                    <Link onClick={this.exportTable} label="Export data to xls" icon="get_app" />
+                    <Link onClick={this.exportTable} label="Export data to xls" icon="get_app"/>
                 </div>
             </div>
         )

@@ -8,8 +8,8 @@ import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
 import css from "./index.scss";
-import _ from 'lodash';
-import Link from 'react-toolbox/lib/link';
+import _ from "lodash";
+import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
 
 
@@ -112,12 +112,15 @@ class ReportingTable extends React.Component {
         return (
             <div>
                 <div className={ css.changeScreenLabel }>
-                    <Link active={this.props.currentCategory=='location'} label="Localização" icon='location_city' onClick={() => this.props.changeCategory('location')} />
-                    <Link active={this.props.currentCategory=='week'} label="Semana" icon='date_range' onClick={() => this.props.changeCategory('week')}/>
+                    <Link active={this.props.currentCategory=='location'} label="Localização" icon='location_city'
+                          onClick={() => this.props.changeCategory('location')}/>
+                    <Link active={this.props.currentCategory=='week'} label="Semana" icon='date_range'
+                          onClick={() => this.props.changeCategory('week')}/>
                 </div>
                 <div className={ css.tableContainer }>
                     <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
-                        <ReportingHead spans={calSpan.calculateSpan(this.props.head)} currentCategory={this.props.currentCategory}/>
+                        <ReportingHead spans={calSpan.calculateSpan(this.props.head)}
+                                       currentCategory={this.props.currentCategory}/>
                         <ReportingBody data={this.state.rows} oriHead={this.props.oriHead}
                                        addChildren={this.addChildren}
                                        hasChildren={this.hasChildren}/>
