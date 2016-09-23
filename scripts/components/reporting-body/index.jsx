@@ -5,6 +5,10 @@ import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
 
+var _ = {
+    each: require('lodash/each')
+};
+
 class ReportingBody extends React.Component {
     constructor(props) {
         super(props);
@@ -49,14 +53,13 @@ class ReportingBody extends React.Component {
             return;
         }
 
-
         this.setState({isLoading: {...this.state.isLoading, [name]: true}});
 
         axios.get(calUrl.getChildrenUrl(id), config)
             .then((ous) => {
                 return axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'), config)
-                    .then((provinces) => {
-                        var rows = calRow.getRows(provinces.data, oriHead);
+                    .then((children) => {
+                        var rows = calRow.getRows(children.data, oriHead);
                         addChildren(id, rows);
 
                         this.setState({isLoading: {...this.state.isLoading, [name]: false}});
@@ -81,7 +84,7 @@ class ReportingBody extends React.Component {
             if (showChildren && data.children) {
                 level++;
                 data.children.map(function (child) {
-                    generate([child], level);
+                    generate(child, level);
                 })
             }
         }
@@ -89,7 +92,6 @@ class ReportingBody extends React.Component {
         _.each(oriRows, function(oriRow) {
             generate(oriRow, oriRow.level);
         });
-
 
         return rows;
     }

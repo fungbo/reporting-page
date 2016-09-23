@@ -22,7 +22,7 @@ var getDimensionOu = function (ous) {
         dimension += ou + ';';
     });
 
-    return _.trimEnd(dimension, ';');
+    return _.trimEnd(dimension, ';');g
 };
 
 var getPeriod = function (period) {
