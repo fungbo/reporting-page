@@ -40,7 +40,7 @@ class ReportingBody extends React.Component {
         var addChildren = this.props.addChildren;
 
         var config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+            headers: {'Authorization': 'Basic anl5YW5AZHNkLmNvbTpBMTIzNDU2Nzg='}
         };
 
         this.setState({showChildren: values});
@@ -70,8 +70,7 @@ class ReportingBody extends React.Component {
     generateRows(oriRows, state) {
         var rows = [];
 
-        function generate(oriRows, level = 0) {
-            var data = oriRows[0];
+        function generate(data, level = 0) {
 
             var rowId = data.id;
             var rowName = data.name;
@@ -87,7 +86,10 @@ class ReportingBody extends React.Component {
             }
         }
 
-        generate(oriRows);
+        _.each(oriRows, function(oriRow) {
+            generate(oriRow, oriRow.level);
+        });
+
 
         return rows;
     }

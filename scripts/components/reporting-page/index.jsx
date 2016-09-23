@@ -23,7 +23,7 @@ class ReportingPage extends React.Component {
 
     fetchHead() {
         var config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+            headers: {'Authorization': 'Basic anl5YW5AZHNkLmNvbTpBMTIzNDU2Nzg='}
         };
 
         axios.get(calUrl.getIdUrl(), config)

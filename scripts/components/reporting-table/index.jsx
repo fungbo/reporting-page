@@ -11,6 +11,7 @@ import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
 
 var _ = {
+    each: require('lodash/each'),
     noop: require('lodash/noop'),
     cloneDeep: require('lodash/cloneDeep')
 };
@@ -38,23 +39,44 @@ class ReportingTable extends React.Component {
         var defaultPe = 'THIS_YEAR';
 
         var config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+            headers: {'Authorization': 'Basic anl5YW5AZHNkLmNvbTpBMTIzNDU2Nzg='}
         };
 
-        axios.get(calUrl.getRowUrl(props.oriHead, [mohId], defaultPe), config)
-            .then(function (response) {
-                var rows = calRow.getRows(response.data, props.oriHead);
-                this.setState({rows: rows});
-                axios.get(calUrl.getChildrenUrl(mohId), config)
-                    .then(function (ous) {
-                        axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),
-                            defaultPe), config)
-                            .then(function (provinces) {
-                                var rows = calRow.getRows(provinces.data, props.oriHead);
-                                this.addChildren(mohId, rows);
-                            }.bind(this))
+        axios.get(calUrl.getRelatedOuList(), config).then(function (response) {
+            var ous = [];
+
+            _.each(response.data['organisationUnits'], function (ou) {
+                ous.push(ou.id);
+            });
+
+            axios.get(calUrl.getRowUrl(props.oriHead, ous, defaultPe), config)
+                .then(function (response) {
+                    var rows = calRow.getRows(response.data, props.oriHead);
+
+                    var promises = [];
+                    _.each(rows, function (row) {
+                        promises.push(axios.get(calUrl.getOuLevel(row.id)).then(function (response) {
+                            row.level = response.data.level - 1;
+                        }))
+                    });
+
+                    axios.all(promises).then(function () {
+                        this.setState({rows: rows});
                     }.bind(this));
-            }.bind(this))
+
+                    if (rows.length == 1 && rows[0].id === 'MOH12345678') {
+                        axios.get(calUrl.getChildrenUrl(mohId), config)
+                            .then(function (ous) {
+                                axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),
+                                    defaultPe), config)
+                                    .then(function (provinces) {
+                                        var rows = calRow.getRows(provinces.data, props.oriHead);
+                                        this.addChildren(mohId, rows);
+                                    }.bind(this))
+                            }.bind(this));
+                    }
+                }.bind(this))
+        }.bind(this));
     }
 
     addChildren = (id, children) => {

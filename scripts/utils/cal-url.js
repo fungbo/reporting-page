@@ -48,5 +48,13 @@ module.exports = {
 
     getChildrenUrl: function(ouId) {
         return getBaseUrl() + '24/organisationUnits/' + ouId + '?paging=false&fields=children';
+    },
+
+    getRelatedOuList: function () {
+        return getBaseUrl() + 'me?fields=organisationUnits'
+    },
+
+    getOuLevel: function (ou) {
+        return getBaseUrl() + 'organisationUnits/' + ou + '?fields=level'
     }
 };
