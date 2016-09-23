@@ -39,7 +39,7 @@ class ReportingTable extends React.Component {
         var defaultPe = 'THIS_YEAR';
 
         var config = {
-            headers: {'Authorization': 'Basic anl5YW5AZHNkLmNvbTpBMTIzNDU2Nzg='}
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
 
         axios.get(calUrl.getRelatedOuList(), config).then(function (response) {
@@ -64,7 +64,7 @@ class ReportingTable extends React.Component {
                         this.setState({rows: rows});
                     }.bind(this));
 
-                    if (rows.length == 1 && rows[0].id === 'MOH12345678') {
+                    if (rows.length == 1 && rows[0].id === mohId) {
                         axios.get(calUrl.getChildrenUrl(mohId), config)
                             .then(function (ous) {
                                 axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),

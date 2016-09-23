@@ -44,7 +44,7 @@ class ReportingBody extends React.Component {
         var addChildren = this.props.addChildren;
 
         var config = {
-            headers: {'Authorization': 'Basic anl5YW5AZHNkLmNvbTpBMTIzNDU2Nzg='}
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
 
         this.setState({showChildren: values});
