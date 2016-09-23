@@ -1,7 +1,12 @@
+.content {
+  height: 100vh;
+  background: white;
+}
+
 .tableContainer {
   width: auto;
   overflow-y: auto;
-  max-height: 95vh;
+  max-height: calc(100vh - 25px);
 }
 
 .ReportingTable {
@@ -10,6 +15,8 @@
 
 .changeScreenLabel {
   text-align: right;
+  height: 25px;
+  background: #F2F2F1;
   a {
     display: inline-block;
     text-decoration: none;

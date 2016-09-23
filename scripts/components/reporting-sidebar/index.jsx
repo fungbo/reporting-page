@@ -5,6 +5,7 @@ import TreeView from "../../lib/treeview";
 import Link from "react-toolbox/lib/link";
 import moment from "moment";
 import css from "./index.scss";
+import FontIcon from 'react-toolbox/lib/font_icon';
 import {categoryTitle} from "../../configs";
 
 class ReportingSidebar extends React.Component {
@@ -35,6 +36,10 @@ class ReportingSidebar extends React.Component {
         this.props.updateTable(this.treeView.state.data);
     };
 
+    onClean(key) {
+        this.setState({[key]: null})
+    }
+
     render() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
@@ -44,12 +49,14 @@ class ReportingSidebar extends React.Component {
                     value={this.state.startDate}
                     maxDate={this.state.endDate}
                     onChange={this.handleChange.bind(this, 'startDate')}
+                    onClean={this.onClean.bind(this, 'startDate')}
                 />
                 <DatePickerBar
                     label='End epidemiological week'
                     value={this.state.endDate}
                     minDate={this.state.startDate}
                     onChange={this.handleChange.bind(this, 'endDate')}
+                    onClean={this.onClean.bind(this, 'endDate')}
                 />
                 <div className={ css.filterName }>Diseases</div>
                 <div className={ css.filter }>
@@ -77,14 +84,24 @@ class ReportingSidebar extends React.Component {
 class DatePickerBar extends React.Component {
     render() {
         const formatDate = (date) => `${moment(date).format('D MMMM YYYY - WW')} week`;
+        const { label, value, minDate, maxDate, onChange, onClean } = this.props;
 
         return (
-            <DatePicker icon="event"
-                        inputFormat={formatDate}
-                        sundayFirstDayOfWeek
-                        autoOk
-                {...this.props}
-            />)
+            <div>
+                <DatePicker icon="event"
+                            inputFormat={formatDate}
+                            sundayFirstDayOfWeek
+                            autoOk
+                            label={label}
+                            value={value}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            onChange={onChange}
+                >
+                    { this.props.value !== null && <FontIcon className={ css.clear } onClick={ onClean } >clear</FontIcon> }
+                </DatePicker>
+            </div>
+        )
     }
 }
 

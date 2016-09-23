@@ -113,7 +113,7 @@ class ReportingTable extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
                     <Link active={this.props.currentCategory=='location'} label="Localização" icon='location_city'
                           onClick={() => this.props.changeCategory('location')}/>
