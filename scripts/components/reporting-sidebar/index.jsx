@@ -104,7 +104,6 @@ class DatePickerBar extends React.Component {
                             minDate={minDate}
                             maxDate={maxDate}
                             onChange={onChange}
-                            className={css.customDatePicker}
                 >
                     { this.props.value !== null && <FontIcon className={ css.clear } onClick={ onClean } >clear</FontIcon> }
                 </DatePicker>
