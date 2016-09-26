@@ -3,6 +3,7 @@ import {Button} from "react-toolbox/lib/button";
 import DatePicker from "react-toolbox/lib/date_picker";
 import TreeView from "../../lib/treeview";
 import Link from "react-toolbox/lib/link";
+import calPeriod from "../../utils/cal_period.js";
 import moment from "moment";
 import css from "./index.scss";
 import FontIcon from 'react-toolbox/lib/font_icon';
@@ -35,7 +36,7 @@ class ReportingSidebar extends React.Component {
     };
 
     generateReport = () => {
-        this.props.updateTable(this.treeView.state.data);
+        this.props.updateTable(this.treeView.state.data, this.state);
     };
 
     onClean(key) {
@@ -90,8 +91,8 @@ class ReportingSidebar extends React.Component {
 
 class DatePickerBar extends React.Component {
     render() {
-        const formatDate = (date) => `${moment(date).format('D MMMM YYYY - WW')} week`;
-        const { label, value, minDate, maxDate, onChange, onClean } = this.props;
+        const formatDate = (date) => `${moment(date).format('D MMMM YYYY')} - Week ${moment(date).format('ww')}`;
+        const {label, value, minDate, maxDate, onChange, onClean} = this.props;
 
         return (
             <div>
@@ -105,7 +106,8 @@ class DatePickerBar extends React.Component {
                             maxDate={maxDate}
                             onChange={onChange}
                 >
-                    { this.props.value !== null && <FontIcon className={ css.clear } onClick={ onClean } >clear</FontIcon> }
+                    { this.props.value !== null &&
+                    <FontIcon className={ css.clear } onClick={ onClean }>clear</FontIcon> }
                 </DatePicker>
             </div>
         )

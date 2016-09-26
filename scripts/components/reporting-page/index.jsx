@@ -5,6 +5,7 @@ import calUrl from "../../utils/cal-url.js";
 import ReportingTable from "../reporting-table/index.jsx";
 import ReportingSidebar from "../reporting-sidebar/index.jsx";
 import "./index.scss";
+import * as calPeriod from "../../utils/cal_period";
 
 class ReportingPage extends React.Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class ReportingPage extends React.Component {
             oriHead: [],
             updatedOriHead: [],
             filter: [],
+            periods: ['THIS_YEAR'],
             currentCategory: 'location'
         };
 
@@ -53,8 +55,9 @@ class ReportingPage extends React.Component {
         this.setState({currentCategory})
     }
 
-    updateTable = (data) => {
+    updateTable = (data, dateRange) => {
         var status = {};
+        var weekRange = calPeriod.getWeekRange(dateRange);
         _.each(data, function (element) {
             if (element.nodes.length > 0) {
                 _.each(element.nodes, function (node) {
@@ -64,12 +67,12 @@ class ReportingPage extends React.Component {
                 status[element.text] = element.state.selected;
             }
         });
-
         var filteredHead = calHead.updateHead(this.state.oriHead, status);
         this.setState({
             head: calHead.getHead(filteredHead, this.state.mappings),
             updatedOriHead: filteredHead,
-            filter: data
+            filter: data,
+            periods:weekRange
         });
     };
 
@@ -83,6 +86,7 @@ class ReportingPage extends React.Component {
                                 oriHead={this.state.updatedOriHead}
                                 ref={(ref) => this.reportingTable = ref}
                                 currentCategory={ this.state.currentCategory }
+                                periods={ this.state.periods}
                                 changeCategory={ ::this.onChangeCategory }/>
             </div>
         )

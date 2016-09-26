@@ -9,6 +9,7 @@ import calOrgan from "../../utils/cal_organisation";
 import css from "./index.scss";
 import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
+import * as calPeriod from "../../utils/cal_period";
 
 var _ = {
     each: require('lodash/each'),
@@ -22,7 +23,7 @@ class ReportingTable extends React.Component {
         super(props);
 
         this.state = {
-            rows: [{id: '', name: '', values: [], children: [{name: '', values: []}]}]
+            rows: [{id: '', name: '', values: [], children: [{name: '', values: []}]}],
         };
     }
 
@@ -30,13 +31,14 @@ class ReportingTable extends React.Component {
         return {
             head: [],
             oriHead: [],
-            changeCategory: _.noop
+            changeCategory: _.noop,
+            periods : ["THIS_YEAR"]
         }
     };
 
     fetchRows(props) {
         var mohId = 'MOH12345678';
-        var defaultPe = 'THIS_YEAR';
+        var defaultPe = this.props.periods;
 
         var config = {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
@@ -49,7 +51,7 @@ class ReportingTable extends React.Component {
                 ous.push(ou.id);
             });
 
-            axios.get(calUrl.getRowUrl(props.oriHead, ous, defaultPe), config)
+            axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(defaultPe)), config)
                 .then(function (response) {
                     var rows = calRow.getRows(response.data, props.oriHead);
 
@@ -68,7 +70,7 @@ class ReportingTable extends React.Component {
                         axios.get(calUrl.getChildrenUrl(mohId), config)
                             .then(function (ous) {
                                 axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),
-                                    defaultPe), config)
+                                    calPeriod.generatePeriod(props.periods)), config)
                                     .then(function (provinces) {
                                         var rows = calRow.getRows(provinces.data, props.oriHead);
                                         this.addChildren(mohId, rows);
@@ -146,7 +148,7 @@ class ReportingTable extends React.Component {
                     <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
                         <ReportingHead spans={calSpan.calculateSpan(this.props.head)}
                                        currentCategory={this.props.currentCategory}/>
-                        <ReportingBody data={this.state.rows} oriHead={this.props.oriHead}
+                        <ReportingBody data={this.state.rows} oriHead={this.props.oriHead} periods={this.props.periods}
                                        addChildren={this.addChildren}
                                        hasChildren={this.hasChildren}/>
                     </table>

@@ -4,6 +4,7 @@ import ReportingRow from "../reporting-row/index.jsx";
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
+import * as calPeriod from "../../utils/cal_period";
 
 var _ = {
     each: require('lodash/each')
@@ -41,7 +42,9 @@ class ReportingBody extends React.Component {
         values[name] = !this.state.showChildren[name];
 
         var oriHead = this.props.oriHead;
+        var periods = this.props.periods;
         var addChildren = this.props.addChildren;
+
 
         var config = {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
@@ -55,13 +58,13 @@ class ReportingBody extends React.Component {
 
         this.setState({isLoading: {...this.state.isLoading, [name]: true}});
 
+
         axios.get(calUrl.getChildrenUrl(id), config)
             .then((ous) => {
-                return axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), 'THIS_YEAR'), config)
-                    .then((children) => {
-                        var rows = calRow.getRows(children.data, oriHead);
+                return axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), calPeriod.generatePeriod(periods)), config)
+                    .then((provinces) => {
+                        var rows = calRow.getRows(provinces.data, oriHead);
                         addChildren(id, rows);
-
                         this.setState({isLoading: {...this.state.isLoading, [name]: false}});
                     })
             }).catch(() => {
@@ -89,7 +92,7 @@ class ReportingBody extends React.Component {
             }
         }
 
-        _.each(oriRows, function(oriRow) {
+        _.each(oriRows, function (oriRow) {
             generate(oriRow, oriRow.level);
         });
 
