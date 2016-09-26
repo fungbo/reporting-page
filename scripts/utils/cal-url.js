@@ -56,5 +56,9 @@ module.exports = {
 
     getOuLevel: function (ou) {
         return getBaseUrl() + 'organisationUnits/' + ou + '?fields=level'
+    },
+
+    getLocationMapping: function () {
+        return getBaseUrl() + 'organisationUnits?paging=false'
     }
 };

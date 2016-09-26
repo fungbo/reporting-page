@@ -6,7 +6,8 @@ import Link from "react-toolbox/lib/link";
 import moment from "moment";
 import css from "./index.scss";
 import FontIcon from 'react-toolbox/lib/font_icon';
-import {categoryTitle} from "../../configs";
+import { categoryTitle } from "../../configs";
+import Location from '../location/index.jsx';
 
 class ReportingSidebar extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class ReportingSidebar extends React.Component {
 
         this.state = {
             startDate: null,
-            endDate: null
+            endDate: null,
+            location: null
         };
     }
 
@@ -40,6 +42,10 @@ class ReportingSidebar extends React.Component {
         this.setState({[key]: null})
     }
 
+    handleSelectedLocation(location) {
+        this.setState(location)
+    }
+
     render() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
@@ -58,6 +64,7 @@ class ReportingSidebar extends React.Component {
                     onChange={this.handleChange.bind(this, 'endDate')}
                     onClean={this.onClean.bind(this, 'endDate')}
                 />
+                { this.props.currentCategory == 'week' && ( <Location onSelect={::this.handleSelectedLocation} /> ) }
                 <div className={ css.filterName }>Diseases</div>
                 <div className={ css.filter }>
                     {
@@ -97,6 +104,7 @@ class DatePickerBar extends React.Component {
                             minDate={minDate}
                             maxDate={maxDate}
                             onChange={onChange}
+                            className={css.customDatePicker}
                 >
                     { this.props.value !== null && <FontIcon className={ css.clear } onClick={ onClean } >clear</FontIcon> }
                 </DatePicker>
