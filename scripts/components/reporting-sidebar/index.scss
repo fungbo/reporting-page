@@ -1,7 +1,11 @@
 .sidebar {
   background: #F2F2F1;
   min-width: 330px;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .clear {
