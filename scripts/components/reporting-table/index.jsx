@@ -35,6 +35,7 @@ class ReportingTable extends React.Component {
         return {
             head: [],
             oriHead: [],
+            currentCategory: 'location',
             changeCategory: _.noop,
             periods : ["THIS_YEAR"]
         }
@@ -176,7 +177,7 @@ class ReportingTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.props.currentCategory == 'location') {
+        if (props.currentCategory == 'location') {
             this.fetchRows(props);
         }
     }

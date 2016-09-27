@@ -7,7 +7,7 @@ import calPeriod from "../../utils/cal_period.js";
 import moment from "moment";
 import css from "./index.scss";
 import FontIcon from 'react-toolbox/lib/font_icon';
-import { categoryTitle } from "../../configs";
+import { categoryTitle, DEFAULT_ROWS } from "../../configs";
 import Location from '../location/index.jsx';
 
 class ReportingSidebar extends React.Component {
@@ -31,11 +31,15 @@ class ReportingSidebar extends React.Component {
     };
 
     componentWillReceiveProps(next) {
-        if(this.props.currentCategory !== next.currentCategory && next.currentCategory === 'week') {
-            this.setState({
-                startDate: new Date(moment().subtract(24, 'weeks').valueOf()),
-                endDate: new Date(),
-            })
+        if(this.props.currentCategory !== next.currentCategory) {
+            if (next.currentCategory === 'week') {
+                this.setState({
+                    startDate: new Date(moment().subtract((DEFAULT_ROWS - 1), 'weeks').valueOf()),
+                    endDate: new Date()
+                })
+            } else {
+                this.setState({ startDate: null, endDate: null })
+            }
         }
     }
 
