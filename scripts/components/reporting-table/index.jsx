@@ -38,7 +38,6 @@ class ReportingTable extends React.Component {
 
     fetchRows(props) {
         var mohId = 'MOH12345678';
-        var defaultPe = this.props.periods;
 
         var config = {
             headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
@@ -51,7 +50,7 @@ class ReportingTable extends React.Component {
                 ous.push(ou.id);
             });
 
-            axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(defaultPe)), config)
+            axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(props.periods)), config)
                 .then(function (response) {
                     var rows = calRow.getRows(response.data, props.oriHead);
 
