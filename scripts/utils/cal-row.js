@@ -27,13 +27,13 @@ var getRow = function (rows, head, ouId) {
 };
 
 module.exports = {
-    getRows: function (data, head) {
+    getRows: function (data, head, forEachBy = 'ou') {
         var names = data.metaData.names;
 
         var res = [];
-        _.each(data.metaData.ou, function (ou) {
-            var row = getRow(data.rows, head, ou);
-            row['name'] = names[ou];
+        _.each(data.metaData[forEachBy], function (item) {
+            var row = getRow(data.rows, head, item);
+            row['name'] = names[item];
 
             res.push(row);
         });

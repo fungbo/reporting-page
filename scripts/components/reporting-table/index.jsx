@@ -10,11 +10,13 @@ import css from "./index.scss";
 import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
 import * as calPeriod from "../../utils/cal_period";
+import { DEFAULT_TEXT_LEVEL } from '../../configs';
 
 var _ = {
     each: require('lodash/each'),
     noop: require('lodash/noop'),
-    cloneDeep: require('lodash/cloneDeep')
+    cloneDeep: require('lodash/cloneDeep'),
+    get: require('lodash/get'),
 };
 
 
@@ -25,6 +27,8 @@ class ReportingTable extends React.Component {
         this.state = {
             rows: [{id: '', name: '', values: [], children: [{name: '', values: []}]}],
         };
+
+        this.fetchWeekRows = ::this.fetchWeekRows
     }
 
     static get defaultProps() {
@@ -78,6 +82,21 @@ class ReportingTable extends React.Component {
                     }
                 }.bind(this))
         }.bind(this));
+    }
+
+    fetchWeekRows(oriHead, periods, ou) {
+        let config = {
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+        };
+
+        axios.get(calUrl.getWeekRowUrl(oriHead, calPeriod.generatePeriod(periods), ou.id), config)
+            .then((res) => {
+                let rows = calRow.getRows(res.data, oriHead, 'pe').map((row) => {
+                    return {...row, level: DEFAULT_TEXT_LEVEL}
+                });
+
+                this.setState({ rows })
+            })
     }
 
     addChildren = (id, children) => {
@@ -157,7 +176,9 @@ class ReportingTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.fetchRows(props);
+        if (this.props.currentCategory == 'location') {
+            this.fetchRows(props);
+        }
     }
 }
 

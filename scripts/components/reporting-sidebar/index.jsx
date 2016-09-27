@@ -19,13 +19,35 @@ class ReportingSidebar extends React.Component {
             endDate: null,
             location: null
         };
+
+        this.initWeekTable = false;
     }
 
     static get defaultProps() {
         return {
-            filter: []
+            filter: [],
+            currentCategory: 'location'
         }
     };
+
+    componentWillReceiveProps(next) {
+        if(this.props.currentCategory !== next.currentCategory && next.currentCategory === 'week') {
+            this.setState({
+                startDate: new Date(moment().subtract(24, 'weeks').valueOf()),
+                endDate: new Date(),
+            })
+        }
+    }
+
+    componentDidUpdate() {
+        const isCurrentCategory = this.props.currentCategory === 'week';
+        const isHasRequestData = this.state.startDate && this.state.endDate && this.state.location;
+
+        if(!this.initWeekTable && isCurrentCategory && isHasRequestData) {
+            this.initWeekTable = true;
+            this.generateReport()
+        }
+    }
 
     handleChange = (item, value) => {
         this.setState({...this.state, [item]: value});
@@ -44,7 +66,7 @@ class ReportingSidebar extends React.Component {
     }
 
     handleSelectedLocation(location) {
-        this.setState(location)
+        this.setState({location})
     }
 
     render() {

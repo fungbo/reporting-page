@@ -22,7 +22,11 @@ var getDimensionOu = function (ous) {
         dimension += ou + ';';
     });
 
-    return _.trimEnd(dimension, ';');g
+    return _.trimEnd(dimension, ';');
+};
+
+var getDimensionPe = function (weeks) {
+    return "dimension=pe:" + weeks;
 };
 
 var getPeriod = function (period) {
@@ -44,6 +48,14 @@ module.exports = {
         var pe = getPeriod(period);
 
         return getBaseUrl() + 'analytics.json?' + dx + "&" + ou + "&" + pe;
+    },
+
+    getWeekRowUrl: function (oriHead, weeks, organisationUnits) {
+        var dx = getDimensionDx(oriHead);
+        var pe = getDimensionPe(weeks);
+        var ou = 'filter=ou:' + organisationUnits;
+
+        return getBaseUrl() + 'analytics.json?' + dx + "&" + pe;
     },
 
     getChildrenUrl: function(ouId) {

@@ -55,9 +55,9 @@ class ReportingPage extends React.Component {
         this.setState({currentCategory})
     }
 
-    updateTable = (data, dateRange) => {
+    updateTable = (data, state) => {
         var status = {};
-        var weekRange = calPeriod.getWeekRange(dateRange);
+        var weekRange = calPeriod.getWeekRange(state);
         _.each(data, function (element) {
             if (element.nodes.length > 0) {
                 _.each(element.nodes, function (node) {
@@ -73,6 +73,10 @@ class ReportingPage extends React.Component {
             updatedOriHead: filteredHead,
             filter: data,
             periods:weekRange
+        }, () => {
+            if(this.state.currentCategory === 'week') {
+                this.reportingTable.fetchWeekRows(filteredHead, weekRange, state.location)
+            }
         });
     };
 

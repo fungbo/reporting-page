@@ -58,11 +58,18 @@ export default class Location extends Component {
                     regionalList.push(location)
                 }
             });
+
+            const defaultSelected = { id: regionalList[0].id, name: regionalList[0].displayName };
+
             this.setState({
                 regionalList,
                 locationNamesMap: map,
-                loading: false
+                loading: false,
+                selectedLocation: defaultSelected,
+                currentSelected: defaultSelected
             });
+
+            this.props.onSelect && this.props.onSelect(defaultSelected);
 
             if(regionalList.length) {
                 return axios.get(calUrl.getOuLevel(regionalList[0].id))
