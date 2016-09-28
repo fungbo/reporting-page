@@ -1,13 +1,25 @@
 import React from "react";
 import axios from "axios";
+import HeaderBarComponent from "d2-ui/lib/app-header/HeaderBar";
+import headerBarStore$ from "d2-ui/lib/app-header/headerBar.store";
+import withStateFrom from "d2-ui/lib/component-helpers/withStateFrom";
 import calHead from "../../utils/cal-head";
 import calUrl from "../../utils/cal-url.js";
 import ReportingTable from "../reporting-table/index.jsx";
 import ReportingSidebar from "../reporting-sidebar/index.jsx";
-import "./index.scss";
+import css from "./index.scss";
 import * as calPeriod from "../../utils/cal_period";
+import AppTheme from "../../../theme/theme.js";
+
+const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
 class ReportingPage extends React.Component {
+
+    static childContextTypes = {
+        d2: React.PropTypes.object,
+        muiTheme: React.PropTypes.object,
+    };
+
     constructor(props) {
         super(props);
 
@@ -21,6 +33,13 @@ class ReportingPage extends React.Component {
         };
 
         this.exportTable = this.exportTable.bind(this);
+    }
+
+    getChildContext() {
+        return {
+            d2: this.props.d2,
+            muiTheme: AppTheme,
+        };
     }
 
     fetchHead() {
@@ -72,9 +91,9 @@ class ReportingPage extends React.Component {
             head: calHead.getHead(filteredHead, this.state.mappings),
             updatedOriHead: filteredHead,
             filter: data,
-            periods:weekRange
+            periods: weekRange
         }, () => {
-            if(this.state.currentCategory === 'week') {
+            if (this.state.currentCategory === 'week') {
                 this.reportingTable.fetchWeekRows(filteredHead, weekRange, state.location)
             }
         });
@@ -82,7 +101,8 @@ class ReportingPage extends React.Component {
 
     render() {
         return (
-            <div className="ReportingPage">
+            <div className={ css.ReportingPage }>
+                <HeaderBar lastUpdate={new Date()}/>
                 <ReportingSidebar filter={this.state.filter} exportTable={this.exportTable}
                                   currentCategory={ this.state.currentCategory }
                                   updateTable={this.updateTable}/>

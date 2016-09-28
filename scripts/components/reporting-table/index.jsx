@@ -60,8 +60,6 @@ class ReportingTable extends React.Component {
                 .then(function (response) {
                     var rows = calRow.getRows(response.data, props.oriHead);
 
-                    console.log('rows', rows);
-
                     var promises = [];
                     _.each(rows, function (row) {
                         promises.push(axios.get(calUrl.getOuLevel(row.id)).then(function (response) {
