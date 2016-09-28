@@ -60,8 +60,7 @@ module.exports = {
         var dx = getDimensionDx(oriHead);
         var pe = getDimensionPe(weeks);
         var ou = 'filter=ou:' + organisationUnits;
-
-        return this.getBaseUrl() + 'analytics.json?' + dx + "&" + pe;
+        return this.getBaseUrl() + 'analytics.json?' + dx + "&" + ou + "&" + pe;
     },
 
     getChildrenUrl: function(ouId) {
