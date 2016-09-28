@@ -171,7 +171,7 @@ class ReportingTable extends React.Component {
 
     componentWillReceiveProps(props) {
         // test start
-        corsRequest.sendCORSRequest('GET', calUrl.getSyncStatus(), function (response) {
+        corsRequest.sendCORSRequest('GET', calUrl.getIndicatorInfo(), function (response) {
             console.log(response);
         });
         // test end

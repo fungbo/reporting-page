@@ -32,12 +32,15 @@ var getPeriod = function (period) {
 module.exports = {
     getConfig: function() {
         return {
-            
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
     },
 
     getBaseUrl: function () {
-        return window.location.href + 'api/';
+        var protocol = window.location.protocol;
+        var hostname = window.location.hostname;
+        var port = window.location.port;
+        return protocol + '//' + hostname + ':' + port + '/api/';
     },
 
     getIdUrl: function() {
@@ -79,7 +82,7 @@ module.exports = {
         return this.getBaseUrl() + 'organisationUnits?paging=false'
     },
 
-    getSyncStatus: function() {
-        return 'http://52.32.36.132:8080/api/sync-status/'
+    getIndicatorInfo: function() {
+        return 'http://52.32.36.132:8080/api/indicator/'
     }
 };
