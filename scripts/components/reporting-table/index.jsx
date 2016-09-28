@@ -6,6 +6,7 @@ import calSpan from "../../utils/cal-span.js";
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
+import corsRequest from "../../utils/cors-request.js";
 import css from "./index.scss";
 import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
@@ -37,7 +38,7 @@ class ReportingTable extends React.Component {
             oriHead: [],
             currentCategory: 'location',
             changeCategory: _.noop,
-            periods : ["THIS_YEAR"]
+            periods: ["THIS_YEAR"]
         }
     };
 
@@ -58,6 +59,8 @@ class ReportingTable extends React.Component {
             axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(props.periods)), config)
                 .then(function (response) {
                     var rows = calRow.getRows(response.data, props.oriHead);
+
+                    console.log('rows', rows);
 
                     var promises = [];
                     _.each(rows, function (row) {
@@ -158,9 +161,9 @@ class ReportingTable extends React.Component {
         return (
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
-                    <Link active={this.props.currentCategory=='location'} label="Localização" icon='location_city'
+                    <Link active={this.props.currentCategory == 'location'} label="Localização" icon='location_city'
                           onClick={() => this.props.changeCategory('location')}/>
-                    <Link active={this.props.currentCategory=='week'} label="Semana" icon='date_range'
+                    <Link active={this.props.currentCategory == 'week'} label="Semana" icon='date_range'
                           onClick={() => this.props.changeCategory('week')}/>
                 </div>
                 <div className={ css.tableContainer }>
@@ -177,6 +180,12 @@ class ReportingTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        // test start
+        corsRequest.sendCORSRequest('GET', calUrl.getSyncStatus(), function (response) {
+            console.log(response);
+        });
+        // test end
+
         if (props.currentCategory == 'location') {
             this.fetchRows(props);
         }

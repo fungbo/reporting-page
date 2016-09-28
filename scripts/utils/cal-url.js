@@ -72,5 +72,9 @@ module.exports = {
 
     getLocationMapping: function () {
         return getBaseUrl() + 'organisationUnits?paging=false'
+    },
+
+    getSyncStatus: function() {
+        return 'http://52.32.36.132:8080/api/sync-status/'
     }
 };
