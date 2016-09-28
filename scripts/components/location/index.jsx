@@ -31,10 +31,6 @@ export default class Location extends Component {
             { label: "CANCEL", onClick: ::this.handleToggle },
             { label: "OK", onClick: this.handleToggle.bind(this, 'OK') }
         ];
-
-        this.config = {
-            headers: { 'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q=' }
-        };
     }
 
     componentDidMount() {
@@ -46,8 +42,8 @@ export default class Location extends Component {
 
         this.setState({ loading: true });
         axios.all([
-            axios.get(calUrl.getLocationMapping(), this.config),
-            axios.get(calUrl.getRelatedOuList(), this.config)
+            axios.get(calUrl.getLocationMapping(), calUrl.getConfig()),
+            axios.get(calUrl.getRelatedOuList(), calUrl.getConfig())
         ]).then(([mapResult, listResult]) => {
             const map = _.get(mapResult, 'data.organisationUnits', []);
             const list = _.get(listResult, 'data.organisationUnits', []);
@@ -108,7 +104,7 @@ export default class Location extends Component {
 
         this.setState({ loading: true });
 
-        axios.get(calUrl.getChildrenUrl(item.id), this.config)
+        axios.get(calUrl.getChildrenUrl(item.id), calUrl.getConfig())
             .then((res) => {
                 const list = _.get(res, 'data.children', []);
                 const childrenList = [];

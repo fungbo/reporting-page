@@ -45,18 +45,14 @@ class ReportingTable extends React.Component {
     fetchRows(props) {
         var mohId = 'MOH12345678';
 
-        var config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
-        };
-
-        axios.get(calUrl.getRelatedOuList(), config).then(function (response) {
+        axios.get(calUrl.getRelatedOuList(), calUrl.getConfig()).then(function (response) {
             var ous = [];
 
             _.each(response.data['organisationUnits'], function (ou) {
                 ous.push(ou.id);
             });
 
-            axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(props.periods)), config)
+            axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(props.periods)), calUrl.getConfig())
                 .then(function (response) {
                     var rows = calRow.getRows(response.data, props.oriHead);
 
@@ -72,10 +68,10 @@ class ReportingTable extends React.Component {
                     }.bind(this));
 
                     if (rows.length == 1 && rows[0].id === mohId) {
-                        axios.get(calUrl.getChildrenUrl(mohId), config)
+                        axios.get(calUrl.getChildrenUrl(mohId), calUrl.getConfig())
                             .then(function (ous) {
                                 axios.get(calUrl.getRowUrl(props.oriHead, calOrgan.getOrganisations(ous.data['children']),
-                                    calPeriod.generatePeriod(props.periods)), config)
+                                    calPeriod.generatePeriod(props.periods)), calUrl.getConfig())
                                     .then(function (provinces) {
                                         var rows = calRow.getRows(provinces.data, props.oriHead);
                                         this.addChildren(mohId, rows);
@@ -87,11 +83,7 @@ class ReportingTable extends React.Component {
     }
 
     fetchWeekRows(oriHead, periods, ou) {
-        let config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
-        };
-
-        axios.get(calUrl.getWeekRowUrl(oriHead, calPeriod.generatePeriod(periods), ou.id), config)
+        axios.get(calUrl.getWeekRowUrl(oriHead, calPeriod.generatePeriod(periods), ou.id), calUrl.getConfig())
             .then((res) => {
                 let rows = calRow.getRows(res.data, oriHead, 'pe').map((row) => {
                     return {...row, level: DEFAULT_TEXT_LEVEL}

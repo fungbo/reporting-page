@@ -3,10 +3,6 @@ var _ = {
     trimEnd: require('lodash/trimEnd')
 };
 
-var getBaseUrl = function () {
-    return 'http://localhost:8080/api/';
-};
-
 var getDimensionDx = function (oriHead) {
     var dimension = "dimension=dx:";
     _.each(oriHead, function (head) {
@@ -34,12 +30,22 @@ var getPeriod = function (period) {
 };
 
 module.exports = {
+    getConfig: function() {
+        return {
+            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
+        };
+    },
+
+    getBaseUrl: function () {
+        return window.location.href + 'api/';
+    },
+
     getIdUrl: function() {
-        return getBaseUrl() + 'dataElements';
+        return this.getBaseUrl() + 'dataElements';
     },
 
     getHeadUrl: function() {
-        return getBaseUrl() + 'dataElementOperands';
+        return this.getBaseUrl() + 'dataElementOperands';
     },
 
     getRowUrl: function (oriHead, ous, period) {
@@ -47,7 +53,7 @@ module.exports = {
         var ou = getDimensionOu(ous);
         var pe = getPeriod(period);
 
-        return getBaseUrl() + 'analytics.json?' + dx + "&" + ou + "&" + pe;
+        return this.getBaseUrl() + 'analytics.json?' + dx + "&" + ou + "&" + pe;
     },
 
     getWeekRowUrl: function (oriHead, weeks, organisationUnits) {
@@ -55,23 +61,23 @@ module.exports = {
         var pe = getDimensionPe(weeks);
         var ou = 'filter=ou:' + organisationUnits;
 
-        return getBaseUrl() + 'analytics.json?' + dx + "&" + pe;
+        return this.getBaseUrl() + 'analytics.json?' + dx + "&" + pe;
     },
 
     getChildrenUrl: function(ouId) {
-        return getBaseUrl() + '24/organisationUnits/' + ouId + '?paging=false&fields=children';
+        return this.getBaseUrl() + '24/organisationUnits/' + ouId + '?paging=false&fields=children';
     },
 
     getRelatedOuList: function () {
-        return getBaseUrl() + 'me?fields=organisationUnits'
+        return this.getBaseUrl() + 'me?fields=organisationUnits'
     },
 
     getOuLevel: function (ou) {
-        return getBaseUrl() + 'organisationUnits/' + ou + '?fields=level'
+        return this.getBaseUrl() + 'organisationUnits/' + ou + '?fields=level'
     },
 
     getLocationMapping: function () {
-        return getBaseUrl() + 'organisationUnits?paging=false'
+        return this.getBaseUrl() + 'organisationUnits?paging=false'
     },
 
     getSyncStatus: function() {

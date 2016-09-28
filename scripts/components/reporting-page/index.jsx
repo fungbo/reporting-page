@@ -43,14 +43,10 @@ class ReportingPage extends React.Component {
     }
 
     fetchHead() {
-        var config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
-        };
-
-        axios.get(calUrl.getIdUrl(), config)
+        axios.get(calUrl.getIdUrl(), calUrl.getConfig())
             .then(function (response) {
                 var mappings = response.data['dataElements'];
-                axios.get(calUrl.getHeadUrl(), config)
+                axios.get(calUrl.getHeadUrl(), calUrl.getConfig())
                     .then(function (response) {
                         var oriHead = response.data['dataElementOperands'];
                         var filter = calHead.getFilter(oriHead, mappings);

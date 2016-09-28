@@ -45,11 +45,6 @@ class ReportingBody extends React.Component {
         var periods = this.props.periods;
         var addChildren = this.props.addChildren;
 
-
-        var config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
-        };
-
         this.setState({showChildren: values});
 
         if (this.props.hasChildren(id)) {
@@ -59,9 +54,12 @@ class ReportingBody extends React.Component {
         this.setState({isLoading: {...this.state.isLoading, [name]: true}});
 
 
-        axios.get(calUrl.getChildrenUrl(id), config)
+        axios.get(calUrl.getChildrenUrl(id), calUrl.getConfig())
             .then((ous) => {
-                return axios.get(calUrl.getRowUrl(oriHead, calOrgan.getOrganisations(ous.data['children']), calPeriod.generatePeriod(periods)), config)
+                return axios.get(calUrl.getRowUrl(oriHead,
+                    calOrgan.getOrganisations(ous.data['children']),
+                    calPeriod.generatePeriod(periods)),
+                    calUrl.getConfig())
                     .then((provinces) => {
                         var rows = calRow.getRows(provinces.data, oriHead);
                         addChildren(id, rows);
