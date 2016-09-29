@@ -378,10 +378,12 @@ export default class OpsReporting extends Component {
                         <ToolBoxLink label="Ops Indicator" active={true} icon='assignment'/>
                     </Link>
                 </div>
-                <table>
-                    { this.renderTableHead() }
-                    { this.renderTableBody() }
-                </table>
+                <div className={ css.tableContainer }>
+                    <table>
+                        { this.renderTableHead() }
+                        { this.renderTableBody() }
+                    </table>
+                </div>
             </div>
         )
     }

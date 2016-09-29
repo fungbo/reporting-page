@@ -161,6 +161,12 @@
   cursor: pointer;
 }
 
+.tableContainer {
+  width: auto;
+  overflow-y: auto;
+  height: calc(100vh - 7.3rem);
+}
+
 .changeScreenLabel {
   text-align: right;
   height: 25px;
