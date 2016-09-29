@@ -6,6 +6,8 @@ import { Button } from "react-toolbox/lib/button";
 import HeaderBarComponent from "d2-ui/lib/app-header/HeaderBar";
 import headerBarStore$ from "d2-ui/lib/app-header/headerBar.store";
 import withStateFrom from "d2-ui/lib/component-helpers/withStateFrom";
+import ToolBoxLink from "react-toolbox/lib/link";
+import { Link } from 'react-router';
 
 import DatePickerBar from '../date-picker-bar/index.jsx';
 import corsRequest from "../../utils/cors-request.js";
@@ -41,10 +43,6 @@ export default class OpsReporting extends Component {
             rows: []
         };
 
-        this.config = {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
-        };
-
         this.generateRows = ::this.generateRows
     }
 
@@ -56,7 +54,7 @@ export default class OpsReporting extends Component {
     }
 
     componentDidMount() {
-        axios.get(calUrl.getLocationMapping(), this.config)
+        axios.get(calUrl.getLocationMapping(), calUrl.getConfig())
             .then((mapResult) => {
                 const namesMapping = _.get(mapResult, 'data.organisationUnits', []);
                 this.setState({
@@ -112,7 +110,7 @@ export default class OpsReporting extends Component {
 
         let regionalList = [];
 
-        axios.get(calUrl.getRelatedOuList(), this.config)
+        axios.get(calUrl.getRelatedOuList(), calUrl.getConfig())
             .then((listResult) => {
                 const list = _.get(listResult, 'data.organisationUnits', []);
 
@@ -369,6 +367,17 @@ export default class OpsReporting extends Component {
     renderTable() {
         return (
             <div className={ css.content }>
+                <div className={ css.changeScreenLabel }>
+                    <Link to='/?category=location'>
+                        <ToolBoxLink label="Locations" icon='location_city'/>
+                    </Link>
+                    <Link to='/?category=week'>
+                        <ToolBoxLink label="Time series" icon='date_range'/>
+                    </Link>
+                    <Link to='/ops'>
+                        <ToolBoxLink label="Ops Indicator" active={true} icon='assignment'/>
+                    </Link>
+                </div>
                 <table>
                     { this.renderTableHead() }
                     { this.renderTableBody() }

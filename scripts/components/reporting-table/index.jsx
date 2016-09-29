@@ -7,7 +7,8 @@ import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
 import css from "./index.scss";
-import Link from "react-toolbox/lib/link";
+import ToolBoxLink from "react-toolbox/lib/link";
+import { Link } from 'react-router';
 import "./report-table.scss";
 import * as calPeriod from "../../utils/cal_period";
 import { DEFAULT_TEXT_LEVEL } from '../../configs';
@@ -150,10 +151,14 @@ class ReportingTable extends React.Component {
         return (
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
-                    <Link active={this.props.currentCategory == 'location'} label="Localização" icon='location_city'
+                    <ToolBoxLink active={this.props.currentCategory == 'location'} label="Locations" icon='location_city'
                           onClick={() => this.props.changeCategory('location')}/>
-                    <Link active={this.props.currentCategory == 'week'} label="Semana" icon='date_range'
+                    <ToolBoxLink active={this.props.currentCategory == 'week'} label="Time series" icon='date_range'
                           onClick={() => this.props.changeCategory('week')}/>
+                    <Link to='/ops'>
+                        <ToolBoxLink label="Ops Indicator" icon='assignment'/>
+                    </Link>
+
                 </div>
                 <div className={ css.tableContainer }>
                     <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>

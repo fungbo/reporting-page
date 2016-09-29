@@ -10,6 +10,7 @@ import ReportingSidebar from "../reporting-sidebar/index.jsx";
 import css from "./index.scss";
 import * as calPeriod from "../../utils/cal_period";
 import AppTheme from "../../../theme/theme.js";
+import { categoryList } from '../../configs';
 
 const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
@@ -113,6 +114,12 @@ class ReportingPage extends React.Component {
     }
 
     componentDidMount() {
+        const { category } = this.props.location.query;
+
+        if(category && categoryList.indexOf(category) !== -1) {
+            this.onChangeCategory(category)
+        }
+
         this.fetchHead();
     }
 }

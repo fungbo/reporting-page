@@ -27,3 +27,5 @@ export const syncTimeStatusMap = {
     '0': '',
     '1': 'Early submission'
 };
+
+export const categoryList = ['location', 'week'];
