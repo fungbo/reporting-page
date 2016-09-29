@@ -18,7 +18,7 @@ D2Library.getManifest('manifest.webapp')
         ReactDOM.render((
                 <Router history={hashHistory}>
                     <Route path="/" component={ReportingPage} d2={d2}/>
-                    <Route path="/ops" component={OpsReporting}/>
+                    <Route path="/ops" component={OpsReporting} d2={d2}/>
                 </Router>
             ), document.getElementById('app'));
     })

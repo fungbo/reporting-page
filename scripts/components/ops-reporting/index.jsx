@@ -3,6 +3,9 @@ import moment from 'moment';
 import axios from 'axios';
 import _ from 'lodash';
 import { Button } from "react-toolbox/lib/button";
+import HeaderBarComponent from "d2-ui/lib/app-header/HeaderBar";
+import headerBarStore$ from "d2-ui/lib/app-header/headerBar.store";
+import withStateFrom from "d2-ui/lib/component-helpers/withStateFrom";
 
 import DatePickerBar from '../date-picker-bar/index.jsx';
 import corsRequest from "../../utils/cors-request.js";
@@ -10,11 +13,20 @@ import calUrl from "../../utils/cal-url.js";
 import { DEFAULT_OPS_COLUMN, syncStatusMap, syncTimeStatusMap } from '../../configs';
 
 import css from './index.scss';
+import AppTheme from "../../../theme/theme.js";
 
 const HIDE_ICON_CLASS = "glyphicon glyphicon-triangle-right";
 const SHOW_ICON_CLASS = "glyphicon glyphicon-triangle-bottom";
 
+const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
+
 export default class OpsReporting extends Component {
+
+    static childContextTypes = {
+        d2: React.PropTypes.object,
+        muiTheme: React.PropTypes.object,
+    };
+
     constructor() {
         super();
 
@@ -34,6 +46,13 @@ export default class OpsReporting extends Component {
         };
 
         this.generateRows = ::this.generateRows
+    }
+
+    getChildContext() {
+        return {
+            d2: this.props.routes[0].d2,
+            muiTheme: AppTheme,
+        };
     }
 
     componentDidMount() {
@@ -361,6 +380,7 @@ export default class OpsReporting extends Component {
     render() {
         return (
             <div>
+                <HeaderBar lastUpdate={new Date()} />
                 { this.renderSidebar() }
                 { this.renderTable() }
             </div>
