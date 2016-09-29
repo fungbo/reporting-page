@@ -70,11 +70,21 @@ export default class OpsReporting extends Component {
     }
 
     generateReport = () => {
-        const startDate = this.state.startDate || new Date(moment().subtract((DEFAULT_OPS_COLUMN - 1), 'weeks'));
-        const endDate = this.state.endDate || new Date();
+        let startWeek, endWeek;
 
-        let startWeek = moment(startDate);
-        let endWeek = endDate >= startDate ? moment(endDate) : startDate;
+        if(this.state.startDate && this.state.endDate){
+            startWeek = moment(this.state.startDate);
+            endWeek = moment(this.state.endDate);
+        } else if (this.state.startDate) {
+            startWeek = moment(this.state.startDate);
+            endWeek = moment(this.state.startDate).add((DEFAULT_OPS_COLUMN - 1), 'weeks');
+        } else if (this.state.endDate) {
+            startWeek = moment(this.state.endDate).subtract((DEFAULT_OPS_COLUMN - 1), 'weeks');
+            endWeek = moment(this.state.endDate);
+        } else {
+            startWeek = moment().subtract((DEFAULT_OPS_COLUMN - 1), 'weeks').valueOf();
+            endWeek = moment();
+        }
 
         this.setState({
             tableStartDate: startWeek,
@@ -124,6 +134,7 @@ export default class OpsReporting extends Component {
                 <DatePickerBar
                     label="Start week"
                     value={startDate}
+                    maxDate={this.state.endDate}
                     onClean={this.onClean.bind(this, 'startDate')}
                     onChange={this.onChange.bind(this, 'startDate')}
                 />
@@ -131,6 +142,7 @@ export default class OpsReporting extends Component {
                 <DatePickerBar
                     label="End week"
                     value={endDate}
+                    minDate={this.state.startDate}
                     onClean={this.onClean.bind(this, 'endDate')}
                     onChange={this.onChange.bind(this, 'endDate')}
                 />
@@ -168,7 +180,7 @@ export default class OpsReporting extends Component {
 
             headerList.push({
                 moment: endWeek,
-                displayText: `Week ${endWeek.weeks()} (${startDayOfWeek} - ${endDayOfWeek} ${endWeek.format('YYYY')})`
+                displayText: `Week ${endWeek.weeks()} (${startDayOfWeek} - ${endDayOfWeek} ${endWeek.weekYear()})`
             });
 
             endWeek.subtract(1, 'weeks');
