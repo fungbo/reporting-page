@@ -83,6 +83,8 @@ module.exports = {
     },
 
     getIndicatorInfo: function() {
-        return 'http://52.32.36.132:8080/api/indicator/'
+        var protocol = window.location.protocol;
+        var hostname = window.location.hostname;
+        return protocol + '//' + hostname + ':8080' + '/api/indicator';
     }
 };

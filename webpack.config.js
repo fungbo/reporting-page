@@ -69,6 +69,10 @@ module.exports = {
     devServer: {
         hot: true,
         proxy: {
+            '/api/indicator': {
+                target: 'http://52.32.36.132:8080',
+                secure: false
+            },
             '/api/*': {
                 target: 'http://52.32.36.132',
                 secure: false
