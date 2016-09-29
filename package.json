@@ -75,6 +75,7 @@
     "material-ui": "0.14.4",
     "react-bootstrap-treeview": "^0.1.0",
     "react-tap-event-plugin": "^1.0.0",
+    "react-router": "^2.8.1",
     "treeview-react-bootstrap": "^0.4.6"
   }
 }

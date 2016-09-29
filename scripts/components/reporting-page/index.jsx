@@ -37,7 +37,7 @@ class ReportingPage extends React.Component {
 
     getChildContext() {
         return {
-            d2: this.props.d2,
+            d2: this.props.routes[0].d2,
             muiTheme: AppTheme,
         };
     }

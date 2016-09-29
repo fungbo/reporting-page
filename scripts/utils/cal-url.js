@@ -81,10 +81,12 @@ module.exports = {
     getLocationMapping: function () {
         return this.getBaseUrl() + 'organisationUnits?paging=false'
     },
-
-    getIndicatorInfo: function() {
+    getIndicatorInfo: function(organisationUnits, startDate, endDate) {
         var protocol = window.location.protocol;
         var hostname = window.location.hostname;
-        return protocol + '//' + hostname + ':8080' + '/api/indicator';
+        const ou = 'organisationUnits=' + organisationUnits;
+        const st = 'startDate=' + startDate;
+        const ed = 'endDate=' + endDate;
+        return protocol + '//' + hostname + ':8080' + '/api/indicator?' + ou + '&' + st + '&' + ed;
     }
 };

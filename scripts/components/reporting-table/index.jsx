@@ -6,7 +6,6 @@ import calSpan from "../../utils/cal-span.js";
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
-import corsRequest from "../../utils/cors-request.js";
 import css from "./index.scss";
 import Link from "react-toolbox/lib/link";
 import "./report-table.scss";
@@ -170,12 +169,6 @@ class ReportingTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        // test start
-        corsRequest.sendCORSRequest('GET', calUrl.getIndicatorInfo(), function (response) {
-            console.log(response);
-        });
-        // test end
-
         if (props.currentCategory == 'location') {
             this.fetchRows(props);
         }

@@ -1,13 +1,12 @@
 import React from "react";
 import {Button} from "react-toolbox/lib/button";
-import DatePicker from "react-toolbox/lib/date_picker";
 import TreeView from "../../lib/treeview";
 import Link from "react-toolbox/lib/link";
 import calPeriod from "../../utils/cal_period.js";
 import moment from "moment";
 import css from "./index.scss";
-import FontIcon from 'react-toolbox/lib/font_icon';
-import { categoryTitle, DEFAULT_ROWS } from "../../configs";
+import DatePickerBar from '../date-picker-bar/index.jsx'
+import { categoryTitle, DEFAULT_WEEK_ROWS } from "../../configs";
 import Location from '../location/index.jsx';
 
 class ReportingSidebar extends React.Component {
@@ -34,7 +33,7 @@ class ReportingSidebar extends React.Component {
         if(this.props.currentCategory !== next.currentCategory) {
             if (next.currentCategory === 'week') {
                 this.setState({
-                    startDate: new Date(moment().subtract((DEFAULT_ROWS - 1), 'weeks').valueOf()),
+                    startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
                     endDate: new Date()
                 })
             } else {
@@ -111,31 +110,6 @@ class ReportingSidebar extends React.Component {
                 <div className={ css.exportDiv }>
                     <Link onClick={this.exportTable} label="Export data to xls" icon="get_app"/>
                 </div>
-            </div>
-        )
-    }
-}
-
-class DatePickerBar extends React.Component {
-    render() {
-        const formatDate = (date) => `${moment(date).format('D MMMM YYYY')} - Week ${moment(date).format('ww')}`;
-        const {label, value, minDate, maxDate, onChange, onClean} = this.props;
-
-        return (
-            <div>
-                <DatePicker icon="event"
-                            inputFormat={formatDate}
-                            sundayFirstDayOfWeek
-                            autoOk
-                            label={label}
-                            value={value}
-                            minDate={minDate}
-                            maxDate={maxDate}
-                            onChange={onChange}
-                >
-                    { this.props.value !== null &&
-                    <FontIcon className={ css.clear } onClick={ onClean }>clear</FontIcon> }
-                </DatePicker>
             </div>
         )
     }
