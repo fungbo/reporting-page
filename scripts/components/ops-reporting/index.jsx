@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import axios from 'axios';
-import _ from 'lodash';
-import { Button } from "react-toolbox/lib/button";
+import React, {Component} from "react";
+import moment from "moment";
+import axios from "axios";
+import _ from "lodash";
+import {Button} from "react-toolbox/lib/button";
 import HeaderBarComponent from "d2-ui/lib/app-header/HeaderBar";
 import headerBarStore$ from "d2-ui/lib/app-header/headerBar.store";
 import withStateFrom from "d2-ui/lib/component-helpers/withStateFrom";
 import ToolBoxLink from "react-toolbox/lib/link";
-import { Link } from 'react-router';
-
-import DatePickerBar from '../date-picker-bar/index.jsx';
+import {Link} from "react-router";
+import DatePickerBar from "../date-picker-bar/index.jsx";
 import corsRequest from "../../utils/cors-request.js";
 import calUrl from "../../utils/cal-url.js";
-import { DEFAULT_OPS_COLUMN, syncStatusMap, syncTimeStatusMap } from '../../configs';
-
-import css from './index.scss';
+import {DEFAULT_OPS_COLUMN, syncStatusMap, syncTimeStatusMap} from "../../configs";
+import css from "./index.scss";
 import AppTheme from "../../../theme/theme.js";
 
 const HIDE_ICON_CLASS = "glyphicon glyphicon-triangle-right";
@@ -68,7 +66,7 @@ export default class OpsReporting extends Component {
     }
 
     onChange = (item, value) => {
-        this.setState({ [item]: value });
+        this.setState({[item]: value});
     };
 
     initRootLocation(data) {
@@ -89,7 +87,7 @@ export default class OpsReporting extends Component {
     generateReport = () => {
         let startWeek, endWeek;
 
-        if(this.state.startDate && this.state.endDate){
+        if (this.state.startDate && this.state.endDate) {
             startWeek = moment(this.state.startDate);
             endWeek = moment(this.state.endDate);
         } else if (this.state.startDate) {
@@ -116,7 +114,7 @@ export default class OpsReporting extends Component {
 
                 list.forEach((item) => {
                     const location = _.find(this.state.namesMapping, item);
-                    if(location) {
+                    if (location) {
                         regionalList.push(location)
                     }
                 });
@@ -129,22 +127,22 @@ export default class OpsReporting extends Component {
                     regionalList[0].level = response.data.level - 1;
 
                     return corsRequest.sendCORSRequest('GET', calUrl.getIndicatorInfo(organisationUnits, startWeek.valueOf(), endWeek.valueOf()), (res) => {
-                        this.setState({ regionalList }, () => {
+                        this.setState({regionalList}, () => {
                             this.initRootLocation(JSON.parse(res));
                         });
                     });
                 });
             }).catch((err) => {
-                console.log(err.message);
-            });
+            console.log(err.message);
+        });
     };
 
     onClean(key) {
-        this.setState({ [key]: null })
+        this.setState({[key]: null})
     }
 
     renderTimePicker() {
-        const { startDate, endDate } = this.state;
+        const {startDate, endDate} = this.state;
 
         return (
             <div>
@@ -191,7 +189,7 @@ export default class OpsReporting extends Component {
 
         let headerList = [];
 
-        while(endWeek >= startWeek) {
+        while (endWeek >= startWeek) {
             const startDayOfWeek = endWeek.startOf('week').format('D MMM');
             const endDayOfWeek = endWeek.endOf('week').format('D MMM');
 
@@ -207,13 +205,13 @@ export default class OpsReporting extends Component {
         let thInfo = [];
         let thInfoNum = 0;
 
-        while(thInfoNum < headerList.length) {
+        while (thInfoNum < headerList.length) {
             thInfoNum++;
             thInfo = _.concat(thInfo, <th>Sync status</th>, <th>Sync time</th>, <th>ODK version</th>)
         }
 
         return !!headerList.length && (
-            <thead>
+                <thead>
                 <tr>
                     <th rowSpan="2">Localização</th>
                     {
@@ -225,10 +223,12 @@ export default class OpsReporting extends Component {
                     }
                 </tr>
                 <tr>
-                    { thInfo.map(item => { return item }) }
+                    { thInfo.map(item => {
+                        return item
+                    }) }
                 </tr>
-            </thead>
-        )
+                </thead>
+            )
     }
 
     generateRows(item, childrenList, result) {
@@ -246,7 +246,7 @@ export default class OpsReporting extends Component {
     }
 
     fetchChild(item, enableFetch) {
-        if(item.showChildren || item.children) {
+        if (item.showChildren || item.children) {
             item.showChildren = !item.showChildren;
             return this.forceUpdate();
         }
@@ -261,7 +261,7 @@ export default class OpsReporting extends Component {
 
                 list.forEach((item) => {
                     const location = _.find(this.state.namesMapping, item);
-                    if(location) {
+                    if (location) {
                         childrenList.push(location)
                     }
                 });
@@ -272,7 +272,7 @@ export default class OpsReporting extends Component {
                 const startDate = this.state.tableStartDate.valueOf();
                 const endDate = this.state.tableEndDate.valueOf();
 
-                if(organisationUnits) {
+                if (organisationUnits) {
                     return corsRequest.sendCORSRequest('GET', calUrl.getIndicatorInfo(organisationUnits, startDate, endDate), (res) => {
                         item.isLoading = false;
                         this.forceUpdate();
@@ -285,12 +285,12 @@ export default class OpsReporting extends Component {
                     this.forceUpdate();
                 }
             }).catch((err) => {
-                item.isLoading = false;
-                this.forceUpdate();
-            });
+            item.isLoading = false;
+            this.forceUpdate();
+        });
     }
 
-    renderValue(value = []) {
+    renderValue(level, value = []) {
         let columnList = [];
         const bgColor = {
             '-1': 'sick',
@@ -300,16 +300,18 @@ export default class OpsReporting extends Component {
 
         value.forEach((item) => {
             columnList = _.concat(columnList,
-                <td className={css.syncStatus + ' ' + css[bgColor[item.syncStatus]]} >{syncStatusMap[item.syncStatus]}</td>,
+                <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
+                    {level == 3 ? syncStatusMap[item.syncStatus] : ''}</td>,
                 (
-                    <td className={css.syncTime}>
-                        <span className={css.syncTimeStatus + ' ' + (item.syncTime.status < 0 ? css.mark : '')}>
-                            {syncTimeStatusMap[item.syncTime.status]}
+                    <td className={level == 3 ? css.syncTime : ''}>
+                        <span
+                            className={level == 3 ? css.syncTimeStatus + ' ' + (item.syncTime.status < 0 ? css.mark : '') : ''}>
+                            {level == 3 ? syncTimeStatusMap[item.syncTime.status] : ''}
                         </span>
-                        <span>{item.syncTime.time}</span>
+                        <span>{level == 3 ? item.syncTime.time : ''}</span>
                     </td>
                 ),
-                <td className={css.ODKVersion} >{item.ODKVersion}</td>
+                <td className={level == 3 ? css.ODKVersion : ''}>{level == 3 ? item.ODKVersion : ''}</td>
             )
         });
 
@@ -329,11 +331,11 @@ export default class OpsReporting extends Component {
                         { !!rowStyle && <i className={this.getClassName(item.showChildren) + ' ' + css.icon}/> }
                         {item.name}
                     </td>
-                    {this.renderValue(item.value)}
+                    {this.renderValue(item.level, item.value)}
                 </tr>
             ));
 
-            if(item.showChildren){
+            if (item.showChildren) {
                 this.renderTableRows(item.children, rows);
             }
         });
@@ -343,17 +345,19 @@ export default class OpsReporting extends Component {
         const rootLocation = this.state.rootLocation;
 
         return !!rootLocation.length && (
-            <tbody>
+                <tbody>
                 {
                     rootLocation.map((items) => {
                         let list = [];
 
                         this.renderTableRows([items], list);
-                        return list.map((item) => { return item; });
+                        return list.map((item) => {
+                            return item;
+                        });
                     })
                 }
-            </tbody>
-        )
+                </tbody>
+            )
     }
 
     getClassName(showChildren) {
@@ -391,7 +395,7 @@ export default class OpsReporting extends Component {
     render() {
         return (
             <div>
-                <HeaderBar lastUpdate={new Date()} />
+                <HeaderBar lastUpdate={new Date()}/>
                 { this.renderSidebar() }
                 { this.renderTable() }
             </div>
