@@ -399,7 +399,7 @@ export default class OpsReporting extends Component {
     render() {
         return (
             <div>
-                <HeaderBar lastUpdate={new Date()}/>
+                {/*<HeaderBar lastUpdate={new Date()}/>*/}
                 { this.renderSidebar() }
                 { this.renderTable() }
             </div>
