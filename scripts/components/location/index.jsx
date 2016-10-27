@@ -173,7 +173,7 @@ export default class Location extends Component {
                 <div className={ css.locationContainer }>
                     <div className={ css.location } onClick={ ::this.handleToggle }>
                         <label
-                            className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>{this.context.d2.i18n.getTranslation('location')}</label>
+                            className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>location</label>
                         <div>{currentSelected == null ? '' : currentSelected.name}</div>
                         { currentSelected !== null &&
                         <FontIcon className={ css.clear } onClick={ ::this.onClean } name="clear">clear</FontIcon> }
@@ -186,7 +186,7 @@ export default class Location extends Component {
                     onEscKeyDown={::this.handleToggle}
                     onOverlayClick={::this.handleToggle}
                 >
-                    <div className={ css.dialogTitle }>{this.context.d2.i18n.getTranslation(LOCATION_DIALOG_TEXT)}</div>
+                    <div className={ css.dialogTitle }>Select all provinces, districts or health facilities that you would like to report on</div>
                     <div className={ (this.state.loading ? css.loading : css.hide) }>
                         <ProgressBar type='circular' mode='indeterminate' multicolor/>
                     </div>

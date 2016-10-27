@@ -46,7 +46,7 @@ class ReportingHead extends React.Component {
             <thead className="ReportingHead">
             <tr>
                 <th rowSpan={maxLayer}
-                    className={ css.headerTitle }>{ this.context.d2.i18n.getTranslation(tableHeaderTitle[this.props.currentCategory]) }</th>
+                    className={ css.headerTitle }>{this.props.currentCategory}</th>
                 {_.forEach(firstLayer, (function (value) {
                     return value
                 }))}

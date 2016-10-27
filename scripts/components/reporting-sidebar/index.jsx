@@ -87,23 +87,23 @@ class ReportingSidebar extends React.Component {
     render() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
-                <div className={ css.head }>{this.props.d2.i18n.getTranslation(categoryTitle[this.props.currentCategory])}</div>
+                <div className={ css.head }>{this.props.currentCategory}</div>
                 <DatePickerBar
-                    label={this.props.d2.i18n.getTranslation('start_epi_week')}
+                    label="Start epidemiological week"
                     value={this.state.startDate}
                     maxDate={this.state.endDate}
                     onChange={this.handleChange.bind(this, 'startDate')}
                     onClean={this.onClean.bind(this, 'startDate')}
                 />
                 <DatePickerBar
-                    label={this.props.d2.i18n.getTranslation('end_epi_week')}
+                    label="End epidemiological week"
                     value={this.state.endDate}
                     minDate={this.state.startDate}
                     onChange={this.handleChange.bind(this, 'endDate')}
                     onClean={this.onClean.bind(this, 'endDate')}
                 />
                 { this.props.currentCategory == 'week' && ( <Location onSelect={::this.handleSelectedLocation} /> ) }
-                <div className={ css.filterName }>{this.props.d2.i18n.getTranslation('diseases')}</div>
+                <div className={ css.filterName }>disease</div>
                 <div className={ css.filter }>
                     {
                         !!this.props.filter.length && (<TreeView data={ this.props.filter }
@@ -116,10 +116,10 @@ class ReportingSidebar extends React.Component {
                                                                  ref={(ref) => this.treeView = ref}/>)
                     }
                 </div>
-                <Button className={ css.reportBtn } label={this.props.d2.i18n.getTranslation('gen_report')} neutral={ false }
+                <Button className={ css.reportBtn } label="generate report" neutral={ false }
                         onClick={this.generateReport}/>
                 <div className={ css.exportDiv }>
-                    <Link onClick={this.exportTable} label={this.props.d2.i18n.getTranslation('export_to_xls')} icon="get_app"/>
+                    <Link onClick={this.exportTable} label="export to xls" icon="get_app"/>
                 </div>
             </div>
         )

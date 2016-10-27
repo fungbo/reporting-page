@@ -147,7 +147,7 @@ export default class OpsReporting extends Component {
         return (
             <div>
                 <DatePickerBar
-                    label={this.props.routes[0].d2.i18n.getTranslation('start_epi_week')}
+                    label="Start epidemiological week"
                     value={startDate}
                     maxDate={this.state.endDate}
                     onClean={this.onClean.bind(this, 'startDate')}
@@ -155,7 +155,7 @@ export default class OpsReporting extends Component {
                 />
 
                 <DatePickerBar
-                    label={this.props.routes[0].d2.i18n.getTranslation('end_epi_week')}
+                    label="End epidemiological week"
                     value={endDate}
                     minDate={this.state.startDate}
                     onClean={this.onClean.bind(this, 'endDate')}
@@ -168,11 +168,11 @@ export default class OpsReporting extends Component {
     renderSidebar() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
-                <div className={ css.head }>{this.props.routes[0].d2.i18n.getTranslation('ops_indicator')}</div>
+                <div className={ css.head }>Ops Indicator</div>
                 { this.renderTimePicker() }
                 <Button
                     className={ css.reportBtn }
-                    label={this.props.routes[0].d2.i18n.getTranslation('gen_report')}
+                    label="Generate Report"
                     neutral={ false }
                     onClick={this.generateReport}
                 />
@@ -195,7 +195,7 @@ export default class OpsReporting extends Component {
 
             headerList.push({
                 moment: endWeek,
-                displayText: `${this.props.routes[0].d2.i18n.getTranslation('week')} ${endWeek.weeks()} (${startDayOfWeek} - ${endDayOfWeek} ${endWeek.weekYear()})`
+                displayText: `week ${endWeek.weeks()} (${startDayOfWeek} - ${endDayOfWeek} ${endWeek.weekYear()})`
             });
 
             endWeek.subtract(1, 'weeks');
@@ -208,16 +208,16 @@ export default class OpsReporting extends Component {
         while (thInfoNum < headerList.length) {
             thInfoNum++;
             thInfo = _.concat(thInfo,
-                <th>{this.props.routes[0].d2.i18n.getTranslation('sync_status')}</th>,
-                <th>{this.props.routes[0].d2.i18n.getTranslation('sync_time')}</th>,
-                <th>{this.props.routes[0].d2.i18n.getTranslation('odk_version')}</th>
+                <th>Sync Status</th>,
+                <th>Sync time</th>,
+                <th>ODK version</th>
             )
         }
 
         return !!headerList.length && (
                 <thead>
                 <tr>
-                    <th rowSpan="2">{this.props.routes[0].d2.i18n.getTranslation('location')}</th>
+                    <th rowSpan="2">location</th>
                     {
                         headerList.map((header, idx) => {
                             return (
@@ -377,13 +377,13 @@ export default class OpsReporting extends Component {
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
                     <Link to='/?category=location'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('location')} icon='location_city'/>
+                        <ToolBoxLink label='location' icon='location_city'/>
                     </Link>
                     <Link to='/?category=week'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('time_series')} icon='date_range'/>
+                        <ToolBoxLink label='time series' icon='date_range'/>
                     </Link>
                     <Link to='/ops'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('ops_indicator')} active={true} icon='assignment'/>
+                        <ToolBoxLink label='ops indicator' active={true} icon='assignment'/>
                     </Link>
                 </div>
                 <div className={ css.tableContainer }>

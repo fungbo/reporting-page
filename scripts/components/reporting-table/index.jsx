@@ -164,13 +164,13 @@ class ReportingTable extends React.Component {
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
                     <ToolBoxLink active={this.props.currentCategory == 'location'}
-                                 label={this.props.d2.i18n.getTranslation('location')} icon='location_city'
+                                 label="location" icon='location_city'
                                  onClick={() => this.props.changeCategory('location')}/>
                     <ToolBoxLink active={this.props.currentCategory == 'week'}
-                                 label={this.props.d2.i18n.getTranslation('time_series')} icon='date_range'
+                                 label="time series" icon='date_range'
                                  onClick={() => this.props.changeCategory('week')}/>
                     <Link to='/ops'>
-                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('ops_indicator')} icon='assignment'/>
+                        <ToolBoxLink label="ops indicator" icon='assignment'/>
                     </Link>
 
                 </div>
