@@ -37,6 +37,10 @@ export default class Location extends Component {
         this.initList();
     }
 
+    static contextTypes = {
+        d2: React.PropTypes.object
+    };
+
     initList() {
         let regionalList = [];
 
@@ -143,7 +147,7 @@ export default class Location extends Component {
                         icon = <FontIcon style={{
                             ...iconStyle,
                             marginLeft: (level) * 20 + 'px'
-                        }}>{ item.showChildren ? 'arrow_drop_down' : 'arrow_drop_up' }</FontIcon>;
+                        }}>{ item.showChildren ? 'expand_more' : 'chevron_right' }</FontIcon>;
                     }
 
                     return (
@@ -169,7 +173,7 @@ export default class Location extends Component {
                 <div className={ css.locationContainer }>
                     <div className={ css.location } onClick={ ::this.handleToggle }>
                         <label
-                            className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>Location</label>
+                            className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>{this.context.d2.i18n.getTranslation('location')}</label>
                         <div>{currentSelected == null ? '' : currentSelected.name}</div>
                         { currentSelected !== null &&
                         <FontIcon className={ css.clear } onClick={ ::this.onClean } name="clear">clear</FontIcon> }
@@ -182,7 +186,7 @@ export default class Location extends Component {
                     onEscKeyDown={::this.handleToggle}
                     onOverlayClick={::this.handleToggle}
                 >
-                    <div className={ css.dialogTitle }>{ LOCATION_DIALOG_TEXT }</div>
+                    <div className={ css.dialogTitle }>{this.context.d2.i18n.getTranslation(LOCATION_DIALOG_TEXT)}</div>
                     <div className={ (this.state.loading ? css.loading : css.hide) }>
                         <ProgressBar type='circular' mode='indeterminate' multicolor/>
                     </div>

@@ -30,9 +30,9 @@ class ReportingPage extends React.Component {
             updatedOriHead: [],
             filter: [],
             periods: ['THIS_YEAR'],
-            currentCategory: 'location'
+            currentCategory: 'location',
+            showChildren: {MoH: true}
         };
-
         this.exportTable = this.exportTable.bind(this);
     }
 
@@ -88,7 +88,8 @@ class ReportingPage extends React.Component {
             head: calHead.getHead(filteredHead, this.state.mappings),
             updatedOriHead: filteredHead,
             filter: data,
-            periods: weekRange
+            periods: weekRange,
+            showChildren: {MoH: true}
         }, () => {
             if (this.state.currentCategory === 'week') {
                 this.reportingTable.fetchWeekRows(filteredHead, weekRange, state.location)
@@ -102,13 +103,16 @@ class ReportingPage extends React.Component {
                 <HeaderBar lastUpdate={new Date()}/>
                 <ReportingSidebar filter={this.state.filter} exportTable={this.exportTable}
                                   currentCategory={ this.state.currentCategory }
-                                  updateTable={this.updateTable}/>
+                                  updateTable={this.updateTable}
+                                  d2={this.props.routes[0].d2}/>
                 <ReportingTable head={this.state.head}
                                 oriHead={this.state.updatedOriHead}
                                 ref={(ref) => this.reportingTable = ref}
                                 currentCategory={ this.state.currentCategory }
                                 periods={ this.state.periods}
-                                changeCategory={ ::this.onChangeCategory }/>
+                                changeCategory={ ::this.onChangeCategory }
+                                showChildren={ this.state.showChildren}
+                                d2={this.props.routes[0].d2} />
             </div>
         )
     }

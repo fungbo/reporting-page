@@ -8,10 +8,10 @@ import calUrl from "../../utils/cal-url.js";
 import calOrgan from "../../utils/cal_organisation";
 import css from "./index.scss";
 import ToolBoxLink from "react-toolbox/lib/link";
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import "./report-table.scss";
 import * as calPeriod from "../../utils/cal_period";
-import { DEFAULT_TEXT_LEVEL } from '../../configs';
+import {DEFAULT_TEXT_LEVEL} from '../../configs';
 
 var _ = {
     each: require('lodash/each'),
@@ -38,9 +38,21 @@ class ReportingTable extends React.Component {
             oriHead: [],
             currentCategory: 'location',
             changeCategory: _.noop,
-            periods: ["THIS_YEAR"]
+            periods: ["THIS_YEAR"],
+            d2: [],
+            showChildren: {MoH: true}
         }
     };
+
+    static childContextTypes = {
+        d2: React.PropTypes.object
+    };
+
+    getChildContext() {
+        return {
+            d2: this.props.d2
+        };
+    }
 
     fetchRows(props) {
         var mohId = 'MOH12345678';
@@ -89,7 +101,7 @@ class ReportingTable extends React.Component {
                     return {...row, level: DEFAULT_TEXT_LEVEL}
                 });
 
-                this.setState({ rows })
+                this.setState({rows})
             })
     }
 
@@ -136,8 +148,8 @@ class ReportingTable extends React.Component {
     exportTable = () => {
         if (this.reportingTable) {
             var toExcel = this.tableToExcel();
-            var title = 'reporting-page';
-
+            var periods = this.props.periods;
+            var title = periods.length > 1 ? periods[0] + "-" + periods[periods.length - 1] + "-" + this.props.currentCategory : periods[0] + "-" + this.props.currentCategory;
             var a = document.createElement('a');
             a.download = title + '.xls';
             a.href = toExcel(this.reportingTable, title);
@@ -151,12 +163,14 @@ class ReportingTable extends React.Component {
         return (
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
-                    <ToolBoxLink active={this.props.currentCategory == 'location'} label="Locations" icon='location_city'
-                          onClick={() => this.props.changeCategory('location')}/>
-                    <ToolBoxLink active={this.props.currentCategory == 'week'} label="Time series" icon='date_range'
-                          onClick={() => this.props.changeCategory('week')}/>
+                    <ToolBoxLink active={this.props.currentCategory == 'location'}
+                                 label={this.props.d2.i18n.getTranslation('location')} icon='location_city'
+                                 onClick={() => this.props.changeCategory('location')}/>
+                    <ToolBoxLink active={this.props.currentCategory == 'week'}
+                                 label={this.props.d2.i18n.getTranslation('time_series')} icon='date_range'
+                                 onClick={() => this.props.changeCategory('week')}/>
                     <Link to='/ops'>
-                        <ToolBoxLink label="Ops Indicator" icon='assignment'/>
+                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('ops_indicator')} icon='assignment'/>
                     </Link>
 
                 </div>
@@ -166,7 +180,9 @@ class ReportingTable extends React.Component {
                                        currentCategory={this.props.currentCategory}/>
                         <ReportingBody data={this.state.rows} oriHead={this.props.oriHead} periods={this.props.periods}
                                        addChildren={this.addChildren}
-                                       hasChildren={this.hasChildren}/>
+                                       hasChildren={this.hasChildren}
+                                       showChildren={this.props.showChildren}
+                        />
                     </table>
                 </div>
             </div>
