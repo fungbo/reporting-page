@@ -100,7 +100,7 @@ class ReportingPage extends React.Component {
     render() {
         return (
             <div className={ css.ReportingPage }>
-                <HeaderBar lastUpdate={new Date()}/>
+                {/*<HeaderBar lastUpdate={new Date()}/>*/}
                 <ReportingSidebar filter={this.state.filter} exportTable={this.exportTable}
                                   currentCategory={ this.state.currentCategory }
                                   updateTable={this.updateTable}
