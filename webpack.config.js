@@ -70,15 +70,15 @@ module.exports = {
         hot: true,
         proxy: {
             '/api/indicator': {
-                target: 'http://52.89.85.171:8080',
+                target: 'https://52.89.85.171:8080',
                 secure: false
             },
             '/api/*': {
-                target: 'http://52.89.85.171',
+                target: 'https://52.89.85.171',
                 secure: false
             },
             '/dhis-web-commons/*': {
-                target: 'http://52.89.85.171',
+                target: 'https://52.89.85.171',
                 secure: false
             }
         }

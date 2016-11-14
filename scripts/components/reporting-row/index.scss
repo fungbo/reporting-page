@@ -3,7 +3,7 @@
 
 .rowName {
   text-align: left;
-  position: relative;
+  //position: relative;
   font-size: 1.2rem;
   padding-left: 3px;
   padding-right: 3px;
@@ -46,6 +46,10 @@
 
 .tertiary {
   background: #DDDDDD;
+}
+
+.default:nth-child(even) {
+  background: #dfe6ec;
 }
 
 .primaryTitle, .secondaryTitle, .tertiaryTitle {

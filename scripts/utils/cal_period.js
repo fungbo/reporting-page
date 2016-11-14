@@ -13,10 +13,10 @@ module.exports = {
         var startDate = dateRange.startDate;
         var endDate = dateRange.endDate;
         if (startDate && endDate) {
-            var tempDate = moment(startDate);
-            var endPoint = moment(endDate);
+            var tempDate = moment(startDate).startOf("week");
+            var endPoint = moment(endDate).endOf("week");;
             var weekRange = [];
-            while (tempDate <= endPoint) {
+            while (tempDate < endPoint) {
                 weekRange.push(generateWeek(tempDate));
                 tempDate = tempDate.add(7, 'day')
             }
